@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | MonkeyC</title>
+  <title>方法总结 | MonkeyC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="MonkeyC">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="4.方法4.1 方法定义​    1.方法定义的一般格式 1234访问修饰符 方法类型 返回值类型 方法名称（参数列表）&amp;#123;	方法体的内容;&amp;#125;  1234567&amp;gt;访问修饰符： private、默认方式、protected、public。&amp;gt;&amp;gt;方法类型：包括：static、默认方式。&amp;gt;&amp;gt;返回值类型：可以是任何Java 数据类型。&amp;gt;&amp;gt;方法名：程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="方法总结">
+<meta property="og:url" content="http://yoursite.com/2019/07/30/【JavaSE】前期总结之方法/index.html">
 <meta property="og:site_name" content="MonkeyC">
+<meta property="og:description" content="4.方法4.1 方法定义​    1.方法定义的一般格式 1234访问修饰符 方法类型 返回值类型 方法名称（参数列表）&amp;#123;	方法体的内容;&amp;#125;  1234567&amp;gt;访问修饰符： private、默认方式、protected、public。&amp;gt;&amp;gt;方法类型：包括：static、默认方式。&amp;gt;&amp;gt;返回值类型：可以是任何Java 数据类型。&amp;gt;&amp;gt;方法名：程">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-30T15:17:00.523Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MonkeyC">
+<meta name="twitter:title" content="方法总结">
+<meta name="twitter:description" content="4.方法4.1 方法定义​    1.方法定义的一般格式 1234访问修饰符 方法类型 返回值类型 方法名称（参数列表）&amp;#123;	方法体的内容;&amp;#125;  1234567&amp;gt;访问修饰符： private、默认方式、protected、public。&amp;gt;&amp;gt;方法类型：包括：static、默认方式。&amp;gt;&amp;gt;返回值类型：可以是任何Java 数据类型。&amp;gt;&amp;gt;方法名：程">
   
     <link rel="alternative" href="/atom.xml" title="MonkeyC" type="application/atom+xml">
   
@@ -150,292 +154,209 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-【JavaSE】前期总结之方法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/31/【JavaSE】新特性(中)/" class="archive-article-date">
-  	<time datetime="2019-07-31T08:38:51.983Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/31/【JavaSE】新特性(中)/">通配符和类型擦除</a>
+    <h1 class="article-title" itemprop="name">
+      方法总结
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/30/【JavaSE】前期总结之方法/" class="archive-article-date">
+        
+        <a href="/2019/07/30/【JavaSE】前期总结之方法/" class="archive-article-date">
   	<time datetime="2019-07-30T15:17:00.523Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/30/【JavaSE】前期总结之方法/">方法总结</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="4-方法"><a href="#4-方法" class="headerlink" title="4.方法"></a>4.方法</h1><h2 id="4-1-方法定义"><a href="#4-1-方法定义" class="headerlink" title="4.1 方法定义"></a>4.1 方法定义</h2><p>​    1.方法定义的一般格式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">访问修饰符 方法类型 返回值类型 方法名称（参数列表）</span><br><span class="line">&#123;</span><br><span class="line">	方法体的内容;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;访问修饰符： private、默认方式、protected、public。</span><br><span class="line">&gt;</span><br><span class="line">&gt;方法类型：包括：static、默认方式。</span><br><span class="line">&gt;</span><br><span class="line">&gt;返回值类型：可以是任何Java 数据类型。</span><br><span class="line">&gt;</span><br><span class="line">&gt;方法名：程序员给方法起的名字，一般要求达到见名知意的规范。</span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
+<p>​    2.方法定义举例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMax</span></span>&#123;<span class="comment">//类声明，public表示类TestMax是公有的</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span> k = max(i,j);<span class="comment">//调用max方法</span></span><br><span class="line">    System.out.println(<span class="string">"i和j中"</span>+k+<span class="string">"是较大值"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//max方法的定义</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> num1,<span class="keyword">int</span> num2)</span></span>&#123;<span class="comment">//public表示max方法是公有的 static表示方法是类方法</span></span><br><span class="line">    <span class="keyword">if</span>(num1 &gt;= num2)&#123;</span><br><span class="line">        <span class="keyword">return</span> num1;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num2;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-方法调用"><a href="#4-2-方法调用" class="headerlink" title="4.2 方法调用"></a>4.2 方法调用</h2><p>​    定义方法的目的就是为了以后调用方法。依据方法是否返回值，有两种调用方法的途径。</p>
+<p>​    （1）方法返回一个值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> k = max(i,j);   <span class="comment">//调用方法max(i,j)，将其结果赋值给int类型的k</span></span><br></pre></td></tr></table></figure>
+
+<p>​    （2）方法不返回值</p>
+<p>​        如果方法不返回值，即，返回数据类型是void，那么，将调用方法当成一条语句使用，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"Hello World"</span>); <span class="comment">// 调用方法println的返回值类型是void</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<h2 id="4-3-参数的传递"><a href="#4-3-参数的传递" class="headerlink" title="4.3 参数的传递"></a>4.3 参数的传递</h2><p>​    方法中的形参有2类，一种是基本数据类型，一种是引用类型。</p>
+<p>​    如果方法中的参数是基本数据类型，则调用方法时，实参值一一对应地传给形参，这称为按值传递；</p>
+<p>​    如果方法中的参数是引用类型，则调用方法时，实参的地址一一对应地传给形参。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num1 = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> num2 = <span class="number">8</span>;</span><br><span class="line">        System.out.println(<span class="string">"在调用swap之前，num1 ="</span>+num1+<span class="string">"  num2+"</span>+num2);</span><br><span class="line">        swap(num1,num2);</span><br><span class="line">        System.out.println();</span><br><span class="line">        System.out.println(<span class="string">"在调用swap之后，num1 ="</span>+num1+<span class="string">"  num2+"</span>+num2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> n1,<span class="keyword">int</span> n2)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在调用swap之前n1 = "</span> + n1 + <span class="string">"  n2="</span> + n2);</span><br><span class="line">        <span class="comment">//下面是交换变量n1，n2的实现过程</span></span><br><span class="line">        <span class="keyword">int</span> temp = n1;</span><br><span class="line">        n1 = n2;</span><br><span class="line">        n2 = temp;</span><br><span class="line">        System.out.println(<span class="string">"在调用swap之后n1 = "</span>+n1+<span class="string">"  n2="</span>+n2);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//打印结果为</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">在调用swap之前，num1 =6  num2=8</span></span><br><span class="line"><span class="comment">在调用swap之前n1 = 6  n2=8</span></span><br><span class="line"><span class="comment">在调用swap之后n1 = 8  n2=6</span></span><br><span class="line"><span class="comment">在调用swap之后，num1 =6  num2=8</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>​    在调用swap方法前，实参num1的值是6，num2的值是8。在调用swap方法后，实参num1、num2的值没有改变。即，swap方法执行后，没有改变实参的值。形参值的改变并没有影响实参num1和num2。</p>
+<h2 id="4-4-方法重载overload"><a href="#4-4-方法重载overload" class="headerlink" title="4.4 方法重载overload"></a>4.4 方法重载overload</h2><p>​    在同一个类中有不同的方法，它们的方法名相同，参数列表（参数列表中参数的个数、参数的类型至少有一个不同），返回值不做要求，方法之间的这种现象称为方法重载。</p>
+<p>​    例如：下面的程序定义三个方法。第一个求最大整数，第二个求最大双精度数，第三个求三个双精度数中的最大数。三个方法的名称都是max，但是，方法的参数列表不同。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> num1,<span class="keyword">int</span> num2)</span></span>&#123;<span class="comment">//int 类型的比较</span></span><br><span class="line">      <span class="keyword">if</span>(num1 &gt; num2)&#123;</span><br><span class="line">          <span class="keyword">return</span> num1;</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> num2;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125; 		</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">max</span><span class="params">(<span class="keyword">double</span> num1,<span class="keyword">double</span> num2)</span></span>&#123;<span class="comment">//double类型两个数值的比较</span></span><br><span class="line">      <span class="keyword">if</span>(num1 &gt; num2)&#123;</span><br><span class="line">          <span class="keyword">return</span> num1;</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> num2;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">max</span><span class="params">(<span class="keyword">double</span> num1,<span class="keyword">double</span> num2,<span class="keyword">double</span> num3)</span></span>&#123;<span class="comment">//double类型三个数值的比较</span></span><br><span class="line">       <span class="keyword">return</span> max(max(num1,num2),num3);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      System.out.println(max(<span class="number">3</span>,<span class="number">4</span>));<span class="comment">//4</span></span><br><span class="line">      System.out.println(max(<span class="number">3.0</span>,<span class="number">4.0</span>));<span class="comment">//4.0</span></span><br><span class="line">      System.out.println(max(<span class="number">3.5</span>,<span class="number">4.7</span>,<span class="number">5.9</span>));<span class="comment">//5.9</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        语句执行的时候，如果实参是int型，就调用int型的max方法，如果实参是double型，就调用形参为double型的max方法，如果实参是三个double型，就调用参数个数为三个double型的max方法。可见，调用语句执行时，java系统是根据实参的个数，参数类型取寻找匹配的方法。</p>
+<h2 id="4-5-方法应用"><a href="#4-5-方法应用" class="headerlink" title="4.5 方法应用"></a>4.5 方法应用</h2><h4 id="例：计算十个随机数的平均值及十个随机数的平方和。"><a href="#例：计算十个随机数的平均值及十个随机数的平方和。" class="headerlink" title="例：计算十个随机数的平均值及十个随机数的平方和。"></a>例：计算十个随机数的平均值及十个随机数的平方和。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;<span class="comment">//保存一个随机数</span></span><br><span class="line">        <span class="keyword">double</span> sum = <span class="number">0</span>;<span class="comment">//保存随机数的和</span></span><br><span class="line">        <span class="keyword">double</span> squresum = <span class="number">0</span>;<span class="comment">//保存随机数的平方和</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">10</span>;i++)&#123;</span><br><span class="line">            num = (<span class="keyword">int</span>) Math.round(Math.random()*<span class="number">1000</span>);<span class="comment">//生成随机数num</span></span><br><span class="line">            System.out.println(num);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//对随机数进行求和</span></span><br><span class="line">            sum = sum + num;</span><br><span class="line">            <span class="comment">//对随机数的和求平方和</span></span><br><span class="line">            squresum = squresum + Math.pow(num,<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//对随机数的和求平均值</span></span><br><span class="line">        <span class="keyword">double</span> mean = sum / <span class="number">10</span>;</span><br><span class="line">        System.out.println(<span class="string">"随机数的平均值为："</span>+ mean);</span><br><span class="line">        System.out.println(<span class="string">"随机数的平方和为："</span>+ squresum);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">打印结果</span></span><br><span class="line"><span class="comment">831</span></span><br><span class="line"><span class="comment">368</span></span><br><span class="line"><span class="comment">901</span></span><br><span class="line"><span class="comment">986</span></span><br><span class="line"><span class="comment">193</span></span><br><span class="line"><span class="comment">265</span></span><br><span class="line"><span class="comment">310</span></span><br><span class="line"><span class="comment">116</span></span><br><span class="line"><span class="comment">349</span></span><br><span class="line"><span class="comment">749</span></span><br><span class="line"><span class="comment">201</span></span><br><span class="line"><span class="comment">随机数的平均值为：526.9</span></span><br><span class="line"><span class="comment">随机数的平方和为：3550215.0</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="例：利用递归计算阶乘"><a href="#例：利用递归计算阶乘" class="headerlink" title="例：利用递归计算阶乘"></a>例：利用递归计算阶乘</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"请输入一个正整数："</span>);<span class="comment">//提示用户输入一个正整数</span></span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> n = scanner.nextInt();</span><br><span class="line">        System.out.println(<span class="string">"n的阶乘为："</span>+factorial(n));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">long</span> <span class="title">factorial</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;<span class="comment">//递归结束的条件，当参数n为0 时，不再递归下去</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//打印结果 输入10 n的阶乘为3628800</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="例：利用递归求斐波那契数"><a href="#例：利用递归求斐波那契数" class="headerlink" title="例：利用递归求斐波那契数"></a>例：利用递归求斐波那契数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"请输入一个正整数："</span>);</span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> n = scanner.nextInt();</span><br><span class="line">        System.out.println(<span class="string">"第n个斐波那契数对应的值是："</span>+ fib(n));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span> || n ==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;<span class="comment">//停止递归调用</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);<span class="comment">//斐波那契数列从第三项开始，当前项为前两项之和</span></span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//输入10 ，结果为89</span></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>你是个好人<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/Users/houchang/Documents/收款二维码/WechatIMG5.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/Users/houchang/Documents/收款二维码/WechatIMG6.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/07/30/【JavaSE】前期总结之方法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/30/【JavaSE】新特性(上)/" class="archive-article-date">
-  	<time datetime="2019-07-30T10:01:33.569Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/07/31/【JavaSE】新特性(中)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          通配符和类型擦除
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/30/【JavaSE】新特性(上)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">新特性</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/30/【JavaSE】新特性(上)/">新特性</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/29/【Java】总结之抽象类与接口/" class="archive-article-date">
-  	<time datetime="2019-07-29T12:03:48.185Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/29/【Java】总结之抽象类与接口/">抽象类与接口</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/29/【Java】总结之特殊类/" class="archive-article-date">
-  	<time datetime="2019-07-29T12:02:08.800Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/29/【Java】总结之特殊类/">总结之三大类</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/29/【JavaSE】前期总结之数据类型/" class="archive-article-date">
-  	<time datetime="2019-07-29T12:01:41.801Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/29/【JavaSE】前期总结之数据类型/">JavaSE之数据类型</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/26/【Java】面向对象编程总结（下）/" class="archive-article-date">
-  	<time datetime="2019-07-26T05:22:55.755Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/26/【Java】面向对象编程总结（下）/">面向对象编程总结(下)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/25/【JavaSE】前期总结之面对对象编程总结（上）/" class="archive-article-date">
-  	<time datetime="2019-07-25T11:50:31.053Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/25/【JavaSE】前期总结之面对对象编程总结（上）/">面向对象总结(上)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/25/【JavaSE】前期总结之运算符和语句/" class="archive-article-date">
-  	<time datetime="2019-07-25T10:54:14.698Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/25/【JavaSE】前期总结之运算符和语句/">JavaSE运算符和语句</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/22/hello-world/" class="archive-article-date">
-  	<time datetime="2019-07-22T04:28:55.695Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -458,8 +379,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
