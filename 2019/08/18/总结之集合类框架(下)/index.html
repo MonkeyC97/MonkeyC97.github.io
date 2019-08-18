@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | MonkeyC</title>
+  <title>Map集合 | MonkeyC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="MonkeyC">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="Map集合Collection集合的特点是每次进行单个对象的保存，如果现在要进行一对对象(偶对象)的保存就只能使用Map集合来完成，即Map集合中会一次性保存两个对象，且这两个对象的关系：key==value结构，这种结构最大的特点是可以通过key找到对应的value内容 Map接口概述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Map集合">
+<meta property="og:url" content="http://yoursite.com/2019/08/18/总结之集合类框架(下)/index.html">
 <meta property="og:site_name" content="MonkeyC">
+<meta property="og:description" content="Map集合Collection集合的特点是每次进行单个对象的保存，如果现在要进行一对对象(偶对象)的保存就只能使用Map集合来完成，即Map集合中会一次性保存两个对象，且这两个对象的关系：key==value结构，这种结构最大的特点是可以通过key找到对应的value内容 Map接口概述">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/Users/houchang/Desktop/blog/5679451-42e4ccca9e5b0392.png">
+<meta property="og:updated_time" content="2019-08-18T07:02:17.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MonkeyC">
+<meta name="twitter:title" content="Map集合">
+<meta name="twitter:description" content="Map集合Collection集合的特点是每次进行单个对象的保存，如果现在要进行一对对象(偶对象)的保存就只能使用Map集合来完成，即Map集合中会一次性保存两个对象，且这两个对象的关系：key==value结构，这种结构最大的特点是可以通过key找到对应的value内容 Map接口概述">
+<meta name="twitter:image" content="http://yoursite.com/Users/houchang/Desktop/blog/5679451-42e4ccca9e5b0392.png">
   
     <link rel="alternative" href="/atom.xml" title="MonkeyC" type="application/atom+xml">
   
@@ -150,295 +156,242 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-总结之集合类框架(下)" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Map集合
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/18/总结之集合类框架(下)/" class="archive-article-date">
+
+        
+        <a href="/2019/08/18/总结之集合类框架(下)/" class="archive-article-date">
   	<time datetime="2019-08-18T07:02:17.557Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/总结之集合类框架(下)/">Map集合</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Map集合"><a href="#Map集合" class="headerlink" title="Map集合"></a>Map集合</h3><p>Collection集合的特点是每次进行单个对象的保存，如果现在要进行一对对象(偶对象)的保存就只能使用Map集合来完成，即Map集合中会一次性保存两个对象，且这两个对象的关系：<code>key==value</code>结构，这种结构最大的特点是可以通过<code>key</code>找到对应的<code>value</code>内容</p>
+<h4 id="Map接口概述"><a href="#Map接口概述" class="headerlink" title="Map接口概述"></a>Map接口概述</h4><a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
-          
+<p><code>public interface Map&lt;K,V&gt;</code></p>
+<p>在Map接口中有如下常用方法：</p>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>方法名称</th>
+<th>类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><code>public V put(K key,V value)</code></td>
+<td>普通</td>
+<td align="left">向Map中追加数据</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>public V get(Object key)</code></td>
+<td>普通</td>
+<td align="left">根据key取得对应的value，如果没有返回null</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>public Set&lt;K&gt; keySet()；</code></td>
+<td>普通</td>
+<td align="left">取得所有key信息，key不能重复</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>public Collection&lt;V&gt; values();</code></td>
+<td>普通</td>
+<td align="left">取得所有value信息，可以重复</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>public Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet();</code></td>
+<td>普通</td>
+<td align="left">将Map集合变为Set集合</td>
+</tr>
+</tbody></table>
+<p>Map本是一个接口，要使用Map需要通过子类进行对象实例化。Map接口的常用子类有如下四个：<strong>HashMap、Hashtable、TreeMap、ConcurrentHashMap</strong></p>
+<h4 id="HashMap子类"><a href="#HashMap子类" class="headerlink" title="HashMap子类"></a>HashMap子类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer,String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="number">1</span>,<span class="string">"hehe"</span>);</span><br><span class="line">        map.put(<span class="number">1</span>,<span class="string">"hehe"</span>);</span><br><span class="line">        map.put(<span class="number">1</span>,<span class="string">"haha"</span>);</span><br><span class="line">        map.put(<span class="number">2</span>,<span class="string">"hehe"</span>);</span><br><span class="line">        map.put(<span class="number">3</span>,<span class="string">"hehehe"</span>);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">        System.out.println(map.get(<span class="number">3</span>));</span><br><span class="line">        System.out.println(map.get(<span class="number">4</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;1=haha, 2=hehe, 3=hehehe&#125;</span></span><br><span class="line"><span class="comment">hehehe</span></span><br><span class="line"><span class="comment">null</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
+<p>范例：取得Map中所有key信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer,String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="number">1</span>,<span class="string">"hehe"</span>);</span><br><span class="line">        map.put(<span class="number">2</span>,<span class="string">"hehe"</span>);</span><br><span class="line">        map.put(<span class="number">1</span>,<span class="string">"hehe"</span>);</span><br><span class="line">        map.put(<span class="number">3</span>,<span class="string">"xixi"</span>);</span><br><span class="line">        Set&lt;Integer&gt; set = map.keySet();</span><br><span class="line">        Iterator&lt;Integer&gt; integerIterator = set.iterator();</span><br><span class="line">        <span class="keyword">while</span>(integerIterator.hasNext())&#123;</span><br><span class="line">            System.out.println(integerIterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="comment">//2</span></span><br><span class="line"><span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+
+<p>范例：将Map转换成Set</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer,String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="number">1</span>,<span class="string">"haha"</span>);</span><br><span class="line">        map.put(<span class="number">2</span>,<span class="string">"xixi"</span>);</span><br><span class="line">        map.put(<span class="number">3</span>,<span class="string">"hehehe"</span>);</span><br><span class="line">        map.put(<span class="number">1</span>,<span class="string">"haha"</span>);</span><br><span class="line">        Set&lt;Map.Entry&lt;Integer,String&gt;&gt; set = map.entrySet();</span><br><span class="line">        Iterator&lt;Map.Entry&lt;Integer, String&gt;&gt; integerIterator = set.iterator();</span><br><span class="line">        <span class="keyword">while</span>(integerIterator.hasNext())&#123;</span><br><span class="line">            System.out.println(integerIterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="HashMap内部实现基本点分析"><a href="#HashMap内部实现基本点分析" class="headerlink" title="HashMap内部实现基本点分析"></a>HashMap内部实现基本点分析</h4><p>![image-20190816181333523](/Users/houchang/Library/Application Support/typora-user-images/image-20190816181333523.png)</p>
+<p>它可以看作是数组(Node[] table)和链表结合组成的复合结构，数组被分为一个一个桶(bucket)，通过哈希值决定了键值对在这个数组的寻址；哈希值相同的键值对，则以链表形式存储，如果链表大小超过阀值(TREEIFY_THRESHOLD,8),图中的链表就会被改造成树形结构。</p>
+<p><strong>构造方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//无参构造方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  			<span class="comment">//默认的容量为16，默认构造因子为0.75F</span></span><br><span class="line">        <span class="keyword">this</span>.loadFactor = DEFAULT_LOAD_FACTOR; <span class="comment">// all other fields defaulted</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//给定容量构造方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">  			<span class="comment">//默认构造因子为0.75F</span></span><br><span class="line">        <span class="keyword">this</span>(initialCapacity, DEFAULT_LOAD_FACTOR);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//给定容量和默认构造因子的构造方法</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal initial capacity: "</span> +initialCapacity);</span><br><span class="line">        <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">            initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">        <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal load factor: "</span> +loadFactor);</span><br><span class="line">        <span class="keyword">this</span>.loadFactor = loadFactor;</span><br><span class="line">        <span class="keyword">this</span>.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;（最大容量）</span></span><br></pre></td></tr></table></figure>
+
+<p>分析：当给定的容量 &lt; 0时，抛出异常：<font color="red"><code>Illegal initial capacity</code></font>，如果容量比最大容量大，那么将最大容量赋值与给定容量，如果构造因子 &lt;= 0或者不是数字的时候，抛出异常：<font color="red"><code>IllegalArguementException</code></font>，其中定义了<code>threshold</code>阀值</p>
+<p><code>threshold = initialCapacity * loadFactor</code>，当<code>HashMap</code>的<code>size</code>到达阀值之后，则需要扩容，通过<code>resize()</code>.</p>
+<p><code>tableSizeFor()</code>的作用是返回一个比给定整数大且最接近的2的幂次方整数，如给定10，返回2的4次方16.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">tableSizeFor</span><span class="params">(<span class="keyword">int</span> cap)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> n = cap - <span class="number">1</span>;</span><br><span class="line">      n |= n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">      n |= n &gt;&gt;&gt; <span class="number">2</span>;</span><br><span class="line">      n |= n &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">      n |= n &gt;&gt;&gt; <span class="number">8</span>;</span><br><span class="line">      n |= n &gt;&gt;&gt; <span class="number">16</span>;</span><br><span class="line">      <span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析：首先，<font color="red"><code>int n = cap -1</code></font>是为了防止cap已经是2的幂时，执行完后面的几条无符号右移操作之后，返回的capacity是这个cap的2倍，因为cap已经是2的幂了，就已经满足条件了。 如果不懂可以往下看完几个无符号移位后再回来看。</p>
+<ul>
+<li>如果n这时为0了（经过了cap-1之后），则经过后面的几次无符号右移依然是0，最后返回的capacity是1（最后有个n+1的操作）。这里只讨论n不等于0的情况。</li>
+</ul>
+<p><img src="/Users/houchang/Desktop/blog/5679451-42e4ccca9e5b0392.png" alt="5679451-42e4ccca9e5b0392"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(Map&lt;? extends K, ? extends V&gt; m)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>.loadFactor = DEFAULT_LOAD_FACTOR;</span><br><span class="line">       putMapEntries(m, <span class="keyword">false</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接进<code>putMapEntries(m,false)</code>看源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">putMapEntries</span><span class="params">(Map&lt;? extends K, ? extends V&gt; m, <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">  <span class="comment">//得到m中元素的个数</span></span><br><span class="line">     <span class="keyword">int</span> s = m.size();</span><br><span class="line">  <span class="comment">//如果m中有元素</span></span><br><span class="line">     <span class="keyword">if</span> (s &gt; <span class="number">0</span>) &#123;</span><br><span class="line">       <span class="comment">//如果table没有被初始化</span></span><br><span class="line">         <span class="keyword">if</span> (table == <span class="keyword">null</span>) &#123; <span class="comment">// pre-size</span></span><br><span class="line">             <span class="keyword">float</span> ft = ((<span class="keyword">float</span>)s / loadFactor) + <span class="number">1.0F</span>;</span><br><span class="line">             <span class="keyword">int</span> t = ((ft &lt; (<span class="keyword">float</span>)MAXIMUM_CAPACITY) ?</span><br><span class="line">                      (<span class="keyword">int</span>)ft : MAXIMUM_CAPACITY);</span><br><span class="line">             <span class="keyword">if</span> (t &gt; threshold)</span><br><span class="line">                 threshold = tableSizeFor(t);</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span> <span class="keyword">if</span> (s &gt; threshold)</span><br><span class="line">             resize();</span><br><span class="line">         <span class="keyword">for</span> (Map.Entry&lt;? extends K, ? extends V&gt; e : m.entrySet()) &#123;</span><br><span class="line">             K key = e.getKey();</span><br><span class="line">             V value = e.getValue();</span><br><span class="line">             putVal(hash(key), key, value, <span class="keyword">false</span>, evict);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>你是个好人<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/Users/houchang/Documents/收款二维码/WechatIMG5.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/Users/houchang/Documents/收款二维码/WechatIMG6.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/18/总结之集合类框架(下)/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/【Java】集合输出的方法/" class="archive-article-date">
-  	<time datetime="2019-08-12T15:16:46.975Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/12/【Java】集合输出的方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">集合输出</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/【Java】集合输出的方法/">集合输出</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/【Java】总结之集合类框架(上)/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:46:02.471Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/【Java】总结之集合类框架(上)/">集合框架(上)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/总结之Lambda/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:43:49.115Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/总结之Lambda/">Lambda表达式</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/07/【Java】新特性(下)/" class="archive-article-date">
-  	<time datetime="2019-08-07T15:43:42.418Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/07/【Java】新特性(下)/">枚举,注解,接口定义加强</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/31/【JavaSE】新特性(中)/" class="archive-article-date">
-  	<time datetime="2019-07-31T09:02:38.080Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/31/【JavaSE】新特性(中)/">通配符和类型擦除</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/31/【Java】总结之特殊类/" class="archive-article-date">
-  	<time datetime="2019-07-31T08:50:50.640Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/31/【Java】总结之特殊类/">总结之三大类</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/30/【JavaSE】前期总结之方法/" class="archive-article-date">
-  	<time datetime="2019-07-30T15:17:00.523Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/30/【JavaSE】前期总结之方法/">方法总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/30/【JavaSE】新特性(上)/" class="archive-article-date">
-  	<time datetime="2019-07-30T10:01:33.569Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/30/【JavaSE】新特性(上)/">新特性</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/29/【Java】总结之抽象类与接口/" class="archive-article-date">
-  	<time datetime="2019-07-29T12:03:48.185Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/29/【Java】总结之抽象类与接口/">抽象类与接口</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +415,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
