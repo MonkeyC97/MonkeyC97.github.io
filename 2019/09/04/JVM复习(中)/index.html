@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>JVM复习(中) | MonkeyC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。&amp;lt;!- more –&amp;gt;主流的JVM中没有选用引用计数法来管理内存，最主要的原因还是引用计数法无法解决对象的循环引用问题。 123456789101112131">
+  <meta name="description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM复习(中)">
 <meta property="og:url" content="http://yoursite.com/2019/09/04/JVM复习(中)/index.html">
 <meta property="og:site_name" content="MonkeyC">
-<meta property="og:description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。&amp;lt;!- more –&amp;gt;主流的JVM中没有选用引用计数法来管理内存，最主要的原因还是引用计数法无法解决对象的循环引用问题。 123456789101112131">
+<meta property="og:description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-04T09:03:11.591Z">
+<meta property="og:updated_time" content="2019-09-04T09:06:33.982Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM复习(中)">
-<meta name="twitter:description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。&amp;lt;!- more –&amp;gt;主流的JVM中没有选用引用计数法来管理内存，最主要的原因还是引用计数法无法解决对象的循环引用问题。 123456789101112131">
+<meta name="twitter:description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。">
   
     <link rel="alternative" href="/atom.xml" title="MonkeyC" type="application/atom+xml">
   
@@ -167,14 +167,16 @@
 
         
         <a href="/2019/09/04/JVM复习(中)/" class="archive-article-date">
-  	<time datetime="2019-09-04T09:03:11.591Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
+  	<time datetime="2019-09-04T09:06:33.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="3-垃圾回收器与内存分配策略"><a href="#3-垃圾回收器与内存分配策略" class="headerlink" title="3.垃圾回收器与内存分配策略"></a>3.垃圾回收器与内存分配策略</h3><h4 id="3-1如何判断对象已死？"><a href="#3-1如何判断对象已死？" class="headerlink" title="3.1如何判断对象已死？"></a>3.1如何判断对象已死？</h4><h5 id="3-1-1引用计数法"><a href="#3-1-1引用计数法" class="headerlink" title="3.1.1引用计数法"></a>3.1.1引用计数法</h5><p>给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。<br>&lt;!- more –&gt;<br>主流的JVM中没有选用引用计数法来管理内存，最主要的原因还是引用计数法无法解决对象的循环引用问题。</p>
+        <h3 id="3-垃圾回收器与内存分配策略"><a href="#3-垃圾回收器与内存分配策略" class="headerlink" title="3.垃圾回收器与内存分配策略"></a>3.垃圾回收器与内存分配策略</h3><h4 id="3-1如何判断对象已死？"><a href="#3-1如何判断对象已死？" class="headerlink" title="3.1如何判断对象已死？"></a>3.1如何判断对象已死？</h4><h5 id="3-1-1引用计数法"><a href="#3-1-1引用计数法" class="headerlink" title="3.1.1引用计数法"></a>3.1.1引用计数法</h5><p>给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。</p>
+<a id="more"></a>
+<p>主流的JVM中没有选用引用计数法来管理内存，最主要的原因还是引用计数法无法解决对象的循环引用问题。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//观察对象的循环引用问题</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*JVM参数：-xx：PrintGC</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Object instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> _1MB = <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">  <span class="comment">//让对象占用一定的空间，触发回收</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] bigSize = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span> * _1MB];</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testGC</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Test test1 = <span class="keyword">new</span> Test();</span><br><span class="line">        Test test2 = <span class="keyword">new</span> Test();</span><br><span class="line">      <span class="comment">//test1的instance对象引用test2</span></span><br><span class="line">        test1.instance = test2;</span><br><span class="line">      <span class="comment">//test2的instance对象引用test1</span></span><br><span class="line">        test2.instance = test1;</span><br><span class="line">        test1 = <span class="keyword">null</span>;</span><br><span class="line">        test2 = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();<span class="comment">//强制垃圾回收</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        testGC();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//[GC (System.gc()) [PSYoungGen: 6767K-&gt;496K(38400K)] 6767K-&gt;504K(125952K), 0.0041076 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]</span></span><br></pre></td></tr></table></figure>
 
 <p>6767k-&gt;496说明此时对象已经被回收了，所以JVM不采用引用计数法来判断对象是否存活。</p>

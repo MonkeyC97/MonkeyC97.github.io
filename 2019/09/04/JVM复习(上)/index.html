@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>JVM(上) | MonkeyC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。&amp;lt;!- more –&amp;gt; 1.程序计数器（PC Reg">
+  <meta name="description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM(上)">
 <meta property="og:url" content="http://yoursite.com/2019/09/04/JVM复习(上)/index.html">
 <meta property="og:site_name" content="MonkeyC">
-<meta property="og:description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。&amp;lt;!- more –&amp;gt; 1.程序计数器（PC Reg">
+<meta property="og:description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-04T09:02:08.883Z">
+<meta property="og:updated_time" content="2019-09-04T09:05:39.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM(上)">
-<meta name="twitter:description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。&amp;lt;!- more –&amp;gt; 1.程序计数器（PC Reg">
+<meta name="twitter:description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。">
   
     <link rel="alternative" href="/atom.xml" title="MonkeyC" type="application/atom+xml">
   
@@ -167,7 +167,7 @@
 
         
         <a href="/2019/09/04/JVM复习(上)/" class="archive-article-date">
-  	<time datetime="2019-09-04T09:02:08.882Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
+  	<time datetime="2019-09-04T09:05:39.031Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
 </a>
         
       </header>
@@ -176,7 +176,8 @@
       
         <h3 id="一-Java内存区域"><a href="#一-Java内存区域" class="headerlink" title="一.Java内存区域"></a>一.Java内存区域</h3><h4 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h4><p>![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png)</p>
 <p>（1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。</p>
-<p>（2）线程共享区域：Java堆、方法区、运行时常量池。<br>&lt;!- more –&gt;</p>
+<p>（2）线程共享区域：Java堆、方法区、运行时常量池。</p>
+<a id="more"></a>
 <h5 id="1-程序计数器（PC-Register）线程私有"><a href="#1-程序计数器（PC-Register）线程私有" class="headerlink" title="1.程序计数器（PC Register）线程私有"></a>1.程序计数器（PC Register）线程私有</h5><p>程序计数器只占用很小的一块空间，可以看成是当前线程执行字节码的行号指示器。</p>
 <p>如果当前线程执行的是一个Java方法，那么程序计数器就记录了正在执行的<font color="red">虚拟机字节码指令的地址</font>，如果是一个Native方法那么这个计数器的值为空。</p>
 <p>#####2.Java虚拟机栈（线程私有）</p>
