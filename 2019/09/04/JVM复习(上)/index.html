@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | MonkeyC</title>
+  <title>JVM(上) | MonkeyC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="MonkeyC">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。&amp;lt;!- more –&amp;gt; 1.程序计数器（PC Reg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM(上)">
+<meta property="og:url" content="http://yoursite.com/2019/09/04/JVM复习(上)/index.html">
 <meta property="og:site_name" content="MonkeyC">
+<meta property="og:description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。&amp;lt;!- more –&amp;gt; 1.程序计数器（PC Reg">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-04T09:02:08.883Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MonkeyC">
+<meta name="twitter:title" content="JVM(上)">
+<meta name="twitter:description" content="一.Java内存区域1.运行时数据区域![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png) （1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。 （2）线程共享区域：Java堆、方法区、运行时常量池。&amp;lt;!- more –&amp;gt; 1.程序计数器（PC Reg">
   
     <link rel="alternative" href="/atom.xml" title="MonkeyC" type="application/atom+xml">
   
@@ -150,295 +154,216 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JVM复习(上)" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/04/JVM复习(中)/" class="archive-article-date">
-  	<time datetime="2019-09-04T09:03:11.591Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/JVM复习(中)/">JVM复习(中)</a>
+    <h1 class="article-title" itemprop="name">
+      JVM(上)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/04/JVM复习(上)/" class="archive-article-date">
+        
+        <a href="/2019/09/04/JVM复习(上)/" class="archive-article-date">
   	<time datetime="2019-09-04T09:02:08.882Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/JVM复习(上)/">JVM(上)</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一-Java内存区域"><a href="#一-Java内存区域" class="headerlink" title="一.Java内存区域"></a>一.Java内存区域</h3><h4 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h4><p>![屏幕快照 2019-09-01 20.03.16](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-01 20.03.16.png)</p>
+<p>（1）线程私有区域：程序计数器、Java虚拟机栈、本地方法栈。</p>
+<p>（2）线程共享区域：Java堆、方法区、运行时常量池。<br>&lt;!- more –&gt;</p>
+<h5 id="1-程序计数器（PC-Register）线程私有"><a href="#1-程序计数器（PC-Register）线程私有" class="headerlink" title="1.程序计数器（PC Register）线程私有"></a>1.程序计数器（PC Register）线程私有</h5><p>程序计数器只占用很小的一块空间，可以看成是当前线程执行字节码的行号指示器。</p>
+<p>如果当前线程执行的是一个Java方法，那么程序计数器就记录了正在执行的<font color="red">虚拟机字节码指令的地址</font>，如果是一个Native方法那么这个计数器的值为空。</p>
+<p>#####2.Java虚拟机栈（线程私有）</p>
+<p>虚拟机栈描述的是Java方法执行的内存模型：每个方法执行的时候同时都会创建一个栈桢用来存储<font color="red">局部变量表、操作数栈、动态链接、方法出口等信息</font>，每一个方法从调用直到执行完成的过程，就对应一个栈桢在虚拟机中入栈和出栈的过程。声明周期与线程相同。</p>
+<p>我们之前讲的栈区域其实就是虚拟机栈中的局部变量表。</p>
+<ul>
+<li><p><strong>局部变量表</strong>：存放了编译器可知的各种基本数据类型(8大基本数据类型)、对象引用。局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在帧中分配大多的局部变量空间完全是确定的，在执行期间不会改变局部变量的大小。</p>
+<ul>
+<li>此区域一共会产生两种异常</li>
+</ul>
+<p>（1）如果线程请求的栈深度大于虚拟机所允许的深度(-Xss设置栈容量)，将会抛出StackOverFlowError异常。</p>
+<p>（2）虚拟机在动态扩展时无法申请到足够的内存，会抛出OOM(OutOfMemoryError)异常</p>
+</li>
+</ul>
+<h5 id="3-本地方法栈-线程私有"><a href="#3-本地方法栈-线程私有" class="headerlink" title="3.本地方法栈(线程私有)"></a>3.本地方法栈(线程私有)</h5><p>本地方法栈与虚拟机栈的作用完全一样，它们的区别就是一个是为Java方法服务，一个是为Native方法服务。</p>
+<p>在HotSpot虚拟机中，本地方法栈与虚拟机栈是同一块内存区域。</p>
+<p><strong><em>线程私有：</em></strong></p>
+<p>由于JVM的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现，因此在任何一个确定的时刻，一个处理器(多核处理器则是指一个内核)都只会执行一条线程中的指令，因此为了切换线程后能恢复到正确的执行位置，每条线程都需要独立的程序计数器，各条线程之间计数器互不影响，独立存储。</p>
+<p>JVM的多线程是通过CPU时间片轮转（即线程轮流切换并分配处理器执行时间）算法来实现的。也就是说，某个线程在执行过程中可能会因为时间片耗尽而被挂起，而另一个线程获取到时间片开始执行。当被挂起的线程重新获取到时间片的时候，它要想从被挂起的地方继续执行，就必须知道它上次执行到哪个位置，在JVM中，通过程序计数器来记录某个线程的字节码执行位置。因此，程序计数器是具备线程隔离的特性，也就是说，每个线程工作时都有属于自己的独立计数器。</p>
+<h5 id="4-Java堆（线程共享）"><a href="#4-Java堆（线程共享）" class="headerlink" title="4.Java堆（线程共享）"></a>4.Java堆（线程共享）</h5><p>Java堆事JVM所管理的最大内存区域，Java堆事所有线程共享的一块区域，在JVM启动时候创建，此内存区域存放的都是对象实例，JVM规范中说到，<strong>所有的对象实例以及数组都在堆上分配</strong></p>
+<p>Java堆是垃圾回收器管理的主要区域，很多时候被称之为GC堆，根据JVM规范，Java堆可以处于物理上不连续的内存空间中，Java堆在主流的虚拟机中都是可以扩展的(<code>-Xmx</code>设置最大值，<code>-Xms</code>设置最小值)。</p>
+<p>如果在堆中没有足够的内存完成实例分配并且堆也无法在进行扩展时，就会抛出<code>OOM</code>异常。</p>
+<h5 id="5-方法区（线程共享）"><a href="#5-方法区（线程共享）" class="headerlink" title="5.方法区（线程共享）"></a>5.方法区（线程共享）</h5><p>方法区与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的<font color="red">类信息、常量、静态变量、即时编译器编译后的代码等数据。</font>在JDK8之前的HotSpot虚拟机中,方法区也被称为”永久代”(JDK8已经被元空间取代)。</p>
+<p>永久代并不意味着数据进入方法区就永久存在，此区域的内存回收主要是针对常量池的回收以及堆类型的卸载。</p>
+<p>当方法区无法满足内存分配需求时，将抛出OOM异常。</p>
+<h5 id="6-运行时常量池-方法区的一部分"><a href="#6-运行时常量池-方法区的一部分" class="headerlink" title="6.运行时常量池(方法区的一部分)"></a>6.运行时常量池(方法区的一部分)</h5><p>常量池是方法区的一部分，存放字面量和符号引用。</p>
+<p><strong>字面量</strong>：字符串（JDK1.7之后移到堆中），final常量，基本数据类型的值</p>
+<p><strong>符号引用：</strong>类和结构的完全限定名，字段的名称和修饰符，方法的名称和修饰符</p>
+<p><strong>Java堆溢出</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//观察Java Heap OOM</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*JVM参数为：-Xmx20m	-Xms20m -xx：+HeapDumpOnOutOfMemoryError</span></span><br><span class="line"><span class="comment">*-xx:+HeapDumpOutOfMemoryError</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">OOMObject</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    List&lt;OOMObject&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">      list.add(<span class="keyword">new</span> OOMObject());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Exception in thread "main" java.lang.OutOfMemoryError: Java heap space</span></span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>加入<code>-xx:+HeapDumpOutOfMemoryError</code>,会生成Dump文件，分析问题的产生到底是出现了内存泄漏(Memory Leak)还是内存溢出(Memory OverFlow)</p>
+<p>内存泄漏：泄露对象无法被GC</p>
+<p>内存溢出：内存对象却是还存活，此时要根据JVM堆参数与物理内存相比较检查是否还应该把JVM堆内存调大，或者检查对象的生命周期是否过长。</p>
+<p><strong>虚拟机栈和本地方法栈溢出</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试单线程下StackOverFlow</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStackOverFlow</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> stackLength = <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stackLeak</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.stackLength++;</span><br><span class="line">        stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        TestStackOverFlow test = <span class="keyword">new</span> TestStackOverFlow();</span><br><span class="line">        test.stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Exception in thread "main" java.lang.StackOverflowError</span></span><br></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试多线程下的StackOverFlow</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStackOverFlow2</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dontStop</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stackOverFlowByThread</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">            Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    dontStop();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        TestStackOverFlow2 test = <span class="keyword">new</span> TestStackOverFlow2();</span><br><span class="line">        test.stackOverFlowByThread();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码不要没事瞎跑。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>你是个好人<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/Users/houchang/Documents/收款二维码/WechatIMG5.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/Users/houchang/Documents/收款二维码/WechatIMG6.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/04/JVM复习(上)/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/25/【Java】反射与类加载器/" class="archive-article-date">
-  	<time datetime="2019-08-25T08:47:46.104Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-25</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/09/04/JVM复习(中)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JVM复习(中)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/25/【Java】反射与类加载器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">反射与类加载器</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/25/【Java】反射与类加载器/">反射与类加载器</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/18/总结之集合类框架(下)/" class="archive-article-date">
-  	<time datetime="2019-08-18T07:02:17.557Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/总结之集合类框架(下)/">Map集合</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/【Java】集合输出的方法/" class="archive-article-date">
-  	<time datetime="2019-08-12T15:16:46.975Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/【Java】集合输出的方法/">集合输出</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/【Java】总结之集合类框架(上)/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:46:02.471Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/【Java】总结之集合类框架(上)/">集合框架(上)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/总结之Lambda/" class="archive-article-date">
-  	<time datetime="2019-08-11T11:43:49.115Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/总结之Lambda/">Lambda表达式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/07/【Java】新特性(下)/" class="archive-article-date">
-  	<time datetime="2019-08-07T15:43:42.418Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/07/【Java】新特性(下)/">枚举,注解,接口定义加强</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/31/【JavaSE】新特性(中)/" class="archive-article-date">
-  	<time datetime="2019-07-31T09:02:38.080Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/31/【JavaSE】新特性(中)/">通配符和类型擦除</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/31/【Java】总结之特殊类/" class="archive-article-date">
-  	<time datetime="2019-07-31T08:50:50.640Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/31/【Java】总结之特殊类/">总结之三大类</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +387,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
