@@ -152,6 +152,184 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JVM复习(下)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="CMS收集器-老年代收集器，并发GC"><a href="#CMS收集器-老年代收集器，并发GC" class="headerlink" title="CMS收集器(老年代收集器，并发GC)"></a>CMS收集器(老年代收集器，并发GC)</h4><ul>
+<li>特性：CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器，目前很大一部分的Java应用集中在互联网站或者B/S系统的服务端上，这类应用尤其重视服务的响应速度，希望系统停顿时间最短，希望系统停顿时间最短，以给用户带来较好的体验，CMS收集器就非常符合这类应用的需求。</li>
+<li>CMS收集器是基于”标记-清除”算法实现的，它的运作过程相对于前面几种收集器来说更复杂一些，整个过程分为4个步骤</li>
+</ul>
+<blockquote>
+<ul>
+<li>初识标记(CMS inital mark) 初识标记仅仅只是标记一下GC Roots能直接关联到的对象，速度很快，需要”Stop the world”</li>
+<li>并发标记（CMS concurrent mark）并发标记阶段就是进行GC Roots Tracing的过程</li>
+<li>重新标记（CMS remark）重新标记阶段是为了修正并发标记期间，因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初识标记阶段稍长一些，但远比并发标记的时间短，仍然需要”Stop The Wrold”。</li>
+<li>并发清除：（CMS concurrent sweep）并发清除清除对象</li>
+</ul>
+</blockquote>
+<p>优点：并发收集、低停顿</p>
+<p>缺点：</p>
+<ul>
+<li>CMS收集器对CPU资源非常敏感，CMS默认启动的回收线程数是<code>（CPU + 3）/ 4</code>,也就是当CPU在4个以上时，并发回收时垃圾收集线程不少于25%的CPU资源，并且随着CPU数量的增加而下降，但是当CPU不足4个时，CMS对用户程序的影响就可能变得很大</li>
+<li>CMS收集器无法处理浮动垃圾CMS收集器无法处理浮动垃圾，可能出现”Concurrent Mode Failure”失败而导致另一次Full GC的产生，由于CMS并发清理阶段用户线程还在运行着，伴随程序自然就还会有新的垃圾不断产生，这一部分垃圾出现在标记过程之后，CMS无法在当次垃圾收集中处理掉它们，只好留到下一次GC的时候处理，这一部分成为浮动垃圾。由于在垃圾收集阶段用户线程还需要运行，哪也就还需要预留足够的内存空间给用户线程使用，而在CMS运行期间预留的内存无法被满足程序需要，也就是当前的对象想要进入老年代但是老年代的内存空间不足而导致<code>Concurrent Mode Failure</code>，这时候虚拟机将启用Serial Old收集器来重新进行老年代的垃圾收集，这样停顿时间也就很长了。</li>
+<li>CMS是基于标记-清除算法，所以会产生大量的空间碎片，空间碎片较多时，将会给大对象的分配带来很大麻烦，往往会出现老年代还有很大空间剩余，但是无法找到足够大的连续空间来分配当前对象，不得不提前出发一次Full GC</li>
+</ul>
+<h4 id="G1收集器（唯一一款全区域的垃圾回收器）"><a href="#G1收集器（唯一一款全区域的垃圾回收器）" class="headerlink" title="G1收集器（唯一一款全区域的垃圾回收器）"></a>G1收集器（唯一一款全区域的垃圾回收器）</h4><p>G1(Garbage First) 垃圾回收器使用在heap memory很大的情况下，把heap划分为很多很多的region块，然后并行的对其进行垃圾回收。</p>
+<p>G1垃圾回收器在清除实例所占用的内存空间之后，还会做内存压缩。</p>
+<p>G1垃圾回收器回收region的时候基本不会STW，而是基于most garbage 有限回收(整体来看是基于标记-整理)算法，从局部（两个region之间）基于复制算法的策略来对region进行垃圾回收的。无论如何，G1收集器采用的算法都意味着一个region有可能属于Eden，Survivor或者Tenured内存区域，图中的E表示该region属于Eden内存区域，S表示属于Survivor内存区域，T表示属于Tenured内存区域。图中空白的表示未使用的内存空间。G1垃圾收集器还增加了一个新的内存区域，叫做Humongous内存区域，如图中的H块，这种内存区域主要用于存储大对象，即大小超过一个region大小的50%的对象。</p>
+<h5 id="年轻代垃圾收集"><a href="#年轻代垃圾收集" class="headerlink" title="年轻代垃圾收集"></a>年轻代垃圾收集</h5><p>在G1垃圾收集中，年轻代的垃圾回收过程使用复制算法，把Eden区和Surivor区的对象复制到新的Survivor区域。</p>
+<h5 id="老年代垃圾收集"><a href="#老年代垃圾收集" class="headerlink" title="老年代垃圾收集"></a>老年代垃圾收集</h5><blockquote>
+<ul>
+<li>初始标记和CMS初识标记一样，找到可达对象的根结点，但是G1的垃圾收集器的初始标记阶段是跟minor gc一同发生的，也就是说，在G1中，你不用像在CMS那样，单独暂停应用程序的执行来运行inital mark阶段，而是在G1minor gc的时候一并将老年代上的inital Mark给做了</li>
+<li>并发标记(Concurrent Mark阶段) 在这个阶段G1做的事情跟CMS一样，但是G1多座了一件事情，那就是如果在并发标记阶段，发现哪些Tenured region中对象的存活率很小或者基本没有对象存活，那么G1就会在这个阶段将其回收掉，这也是G1(Garbage first)的命名来源。</li>
+<li>最终标记：G1采用一种叫做SATB(snapshot-at-the-begining)的算法能够在Remark阶段更快的标记可达对象</li>
+<li>筛选回收（Clean up/Copy）阶段，在G1中，没有CMS中对应的Sweep阶段，相反它有一个Clean up/Copy 阶段，在这个阶段，G1会挑选出哪些对象存活率较低的region进行回收，这个阶段也是和minor gc一同发生的</li>
+</ul>
+</blockquote>
+<p>####3.5内存分配与回收策略</p>
+<h5 id="3-5-1对象优先在Eden区分配"><a href="#3-5-1对象优先在Eden区分配" class="headerlink" title="3.5.1对象优先在Eden区分配"></a>3.5.1对象优先在Eden区分配</h5><p>大多数情况下，对象在新生代的Eden区域分配，当Eden区没有足够的空间进行分配的时候，虚拟机将发生一次Minor GC</p>
+<h5 id="3-5-2大对象直接进入老年代"><a href="#3-5-2大对象直接进入老年代" class="headerlink" title="3.5.2大对象直接进入老年代"></a>3.5.2大对象直接进入老年代</h5><p>所谓的大对象是指，需要大量连续空间的Java对象，最典型的大对象就是那种很长的字符串或者数组。</p>
+<p>使用<code>-XX:PretenureSizeThreshold = 3145728</code>（3MB）来设置超过3MB的对象都会被直接放到老年代</p>
+<h5 id="3-5-3长期存活的对象将进入老年代"><a href="#3-5-3长期存活的对象将进入老年代" class="headerlink" title="3.5.3长期存活的对象将进入老年代"></a>3.5.3长期存活的对象将进入老年代</h5><p>使用<code>-XX:MaxTenuringThreshold = n</code>来设置新生代最大年龄，JVM默认值是15。</p>
+<h5 id="3-5-4动态对象年龄判定"><a href="#3-5-4动态对象年龄判定" class="headerlink" title="3.5.4动态对象年龄判定"></a>3.5.4动态对象年龄判定</h5><p>为了能更好的适应不同的程序内存状况，JVM并不是永远要求年龄必须达到<code>MaxTenuringThreshold</code>才能晋升老年代，如果在Survivor区，年龄相等的对象大小总和大于Survivor空间的一半，年龄大于或者等于该年龄的对象就可以进入老年代，无须等到MaxTenuringThreshold中要求的年龄</p>
+<h5 id="3-5-5空间分配担保"><a href="#3-5-5空间分配担保" class="headerlink" title="3.5.5空间分配担保"></a>3.5.5空间分配担保</h5><p>在发生Minor GC之前，虚拟机会检查老年代最大可用的连续空间是否大于新生代所有对象的总空间。</p>
+<ul>
+<li>如果大于，那么此次Minor GC是安全的</li>
+<li>如果小于，则虚拟机会查看<code>HandlePromotionFailure</code>设置值是否允许担保失败，如果<code>HandlePromotionFailure=true</code>那么会继续检查老年代最大连续空间是否大于历次晋升到老年代的对象的平均大小，如果大于，则尝试进行一次Minor GC，但这次Minor GC依然是有风险的；如果小于或者<code>HandlePromotionFailure = false</code>，则改为进行一次Full GC</li>
+</ul>
+<p>上面提到的此时Minor GC也是有风险的，是因为新生代采用的是复制算法，假如大量对象在Minor GC之后还存活，(最极端的情况为内存回收后新生代中所有对象均存活)而Survivor空间是比较小的，这时就需要老年代进行分配担保，把Survivor无法容纳的对象放在老年代，老年代要进行空间分配担保，必须拥有足够的空间才能容纳这些对象，但一共有多少对象在内存回收后存活下来是不可预知的，因此只好<strong>取之前每次垃圾回收之后晋升到老年代对象大小的平均值作为参考</strong>，使用这个平均值与老年代剩余空间相比，来决定是否进行Full GC了；来让老年代腾出更多的空间。</p>
+<h3 id="常用JVM性能监控与故障处理工具"><a href="#常用JVM性能监控与故障处理工具" class="headerlink" title="常用JVM性能监控与故障处理工具"></a>常用JVM性能监控与故障处理工具</h3><h4 id="JDK命令行工具"><a href="#JDK命令行工具" class="headerlink" title="JDK命令行工具"></a>JDK命令行工具</h4><table>
+<thead>
+<tr>
+<th>命令名称</th>
+<th>全称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>jps</td>
+<td>JVM Process Status Tool</td>
+<td>显示制定系统内所有的HotSpot虚拟机进程</td>
+</tr>
+<tr>
+<td>jstat</td>
+<td>JVM Statistics Monitoring</td>
+<td>用于收集HotSpot虚拟机个方面的运行数据</td>
+</tr>
+<tr>
+<td>jinfo</td>
+<td>Configuration Info for Java</td>
+<td>显示虚拟机配置信息</td>
+</tr>
+<tr>
+<td>jmap</td>
+<td>JVM Memory Map</td>
+<td>生成虚拟机的内存转储快快照，生成heapdump文件</td>
+</tr>
+<tr>
+<td>jhat</td>
+<td>JVM Heap Dump Browser</td>
+<td>用于很细heapdump文件，它会简历一个HTTP/HTML服务器，让用户在浏览器上查看分析结果</td>
+</tr>
+<tr>
+<td>jstack</td>
+<td>JVM Stack Trace</td>
+<td>显示虚拟机的线程快照</td>
+</tr>
+</tbody></table>
+<h3 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h3><p>JVM定义了一种Java内存模型(Java Memory Model，JMM) 来屏蔽掉各种硬件和操作系统的内存访问差异，以实现让Java程序在各种平台下都能达到一致的内存访问效果，在此之前，C/C++直接使用物理硬件，和操作系统的内存模型因，因此会犹豫不同平台下的内存模型的差异，有可能导致程序在一套平台上并发完全正常，而在另一套并发平台上并发访问经常出错。</p>
+<h4 id="1-主内存和工作内存"><a href="#1-主内存和工作内存" class="headerlink" title="1.主内存和工作内存"></a>1.主内存和工作内存</h4><p>Java内存模型的主要目标是定义程序中各个变量的访问规则，即在JVM中将变量存储到内存和从内存中取出变量这样的底层细节，此处的变量包括<strong>实例字段、静态字段和构成数组对象的元素</strong>，但是不包括局部变量和方法参数，因为后两者是线程私有的，不会被线程共享。</p>
+<p>Java内存模型规定所有的变量都必须存储在主内存中，每条线程还有自己的工作内存，现成的工作内存中保存了被该线程使用到的变量的值主内存副本拷贝，线程对变量的所有操作(读取，赋值等)都必须在工作内存中进行，而不能直接读写主内存中的变量。不同的线程之间也无法直接访问对方工作内存中的变量，线程间变量值的传递均需要通过主内存来完成。</p>
+<h4 id="2-内存间相互操作"><a href="#2-内存间相互操作" class="headerlink" title="2.内存间相互操作"></a>2.内存间相互操作</h4><p>关于主内存和工作内存之间的具体交互协议，即一个变量如何从主内存中拷贝到工作内存、如何从工作内存同步回主内存之类的实现细节，Java内存模型中定义了如下8中操作来完成。</p>
+<ul>
+<li>lock(锁定)：作用于主内存的变量，他把一个变量标示为一条线程独占的状态。</li>
+<li>unlock(锁定)：作用于主内存的变量，它把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定。</li>
+<li>read(读取)：作用于主内存的变量，它把一个变量的值从主内存传输到线程的工作内存中去，以便随后的load动作使用。</li>
+<li>load（载入）：作用于工作内存的变量，它把read操作从主内存中得到的变量值放入工作内存的变量副本中去。</li>
+<li>use（使用）：作用于工作内存的变量，它把工作内存中一个变量的值赋给执行引擎。</li>
+<li>assign（赋值）：作用于工作内存的变量，它把一个从执行引擎收到的值赋给工作内存的变量。</li>
+<li>store（存储）：作用于工作内存的变量，它把工作内存中一个变量的值传送到主内存中，以便后续的write操作使用</li>
+<li>write（写入）：作用于主内存的变量，它把store操作从工作内存中的到的变量的值放入主内存的变量中</li>
+</ul>
+<h4 id="Java内存模型的三大特性："><a href="#Java内存模型的三大特性：" class="headerlink" title="Java内存模型的三大特性："></a>Java内存模型的三大特性：</h4><ul>
+<li><strong>原子性</strong>：一个操作或者多个操作要么全部执行并且执行的过程不被任何因素打断，要么全部不执行。<ul>
+<li>read、load、assign、use、store、read大致可以认为，基本数据类型的访问读写是具备原子性的</li>
+</ul>
+</li>
+<li><strong>可见性</strong>：可见性是指当一个线程修改了共享变量的值，其他线程能够立即得知这个修改。volatile、synchronized、final三个关键字可以实现可见性</li>
+<li><strong>有序性</strong>：如果在本线程内观察，所有的操作都是有序的；如果在线程中观察另外一个线程，所有的操作都是无序的。前半句是指”线程内表现为串行”，后半句是指”指令重新排序”和”工作内存与主内存同步延迟”现象</li>
+</ul>
+<p>Java内存模型具备一些先天的”有序性“，即不需要通过任何手段就能够得到保证的有序性，这个通常也称为<code>happens-before</code>先行发生原则原则。</p>
+<p><code>happens-before</code>原则。如果两个操作的执行次序无法从<code>happens-before</code>原则推导出来，那么它们就不能保证它们的有序性，虚拟机可以随意地对他们进行重排序。</p>
+<ul>
+<li><p>程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生与书写在后面的操作。</p>
+</li>
+<li><p>锁定规则：一个unlock操作先行发生与后面对同一个锁的lock操作</p>
+</li>
+<li><p>volatile变量规则：对一个变量的写操作先行发生与后面对这个变量的读操作</p>
+</li>
+<li><p>传递规则：如果操作A先行发生与操作B，而操作B又先行发生与操作C，则可以得出操作A先行发生与操作C</p>
+</li>
+<li><p>线程启动规则：Thread对象的start()方法先行发生于此线程的每一个动作</p>
+</li>
+<li><p>线程终端规则：对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生</p>
+</li>
+<li><p>线程终结规则：线程中所有操作都先行发生与线程的种植检测，我们可以通过Thread.join()方法结束</p>
+<p>​    Thread.isAlive()的返回值手段检测到线程已经终止执行</p>
+</li>
+<li><p>对象终结规则：一个对象的初始化完成先行发生与他的finalize()方法的开始</p>
+</li>
+</ul>
+<p>也就是说，要想并发程序正确地执行，必须要保证原子性、可见性、以及有序性，只要有一个没有被保证，就有可能会导致程序运行不正确</p>
+<h4 id="volatile型变量的特殊规则"><a href="#volatile型变量的特殊规则" class="headerlink" title="volatile型变量的特殊规则"></a>volatile型变量的特殊规则</h4><p>关键字volatile可以说是JVM提供的最轻量级的同步机制，当一个变量定义为volatile之后，它将具备两种特性。</p>
+<p><strong>第一：保证此变量对所有线程的可见性</strong>，这里的可见性是指：当一条线程修改了这个变量的值，新值对于其他线程来说是可以立即得知的。而普通变量做不到这一点，普通变量的值在线程间传递均需要通过主内存来完成。例如：线程A修改一个普通变量的值，然后向主内存进行回写，另外一条线程B在线程A回写完成之后再从主内存进行读取操作，新值才会对线程B可见。</p>
+<p>关于volatile变量的可见性，经常会被开发人员误解，volatile变量在各个线程中是一致的，但是<strong><em>volatile变量的运算在并发下一样是不安全的。</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> staitc <span class="keyword">volatile</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">increase</span><span class="params">()</span></span>&#123;</span><br><span class="line">    num++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> viod <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    Thread[] threads = <span class="keyword">new</span> Thread[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>;i++)&#123;</span><br><span class="line">      threads[i] = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>;j++)&#123;</span><br><span class="line">            increase();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      threads[i].start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(Thread.activeCount() &gt; <span class="number">2</span>)&#123;</span><br><span class="line">      Thread.yield();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(num);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/06/JVM复习(下)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JVM复习(中)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -804,73 +982,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/07/31/【JavaSE】新特性(中)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-【Java】总结之特殊类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/31/【Java】总结之特殊类/">总结之三大类</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/31/【Java】总结之特殊类/" class="archive-article-date">
-  	<time datetime="2019-07-31T08:50:50.640Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="8-三大特殊类"><a href="#8-三大特殊类" class="headerlink" title="8 三大特殊类"></a>8 三大特殊类</h1><h2 id="8-1-String类"><a href="#8-1-String类" class="headerlink" title="8.1 String类"></a>8.1 String类</h2><h5 id="8-1-1-概念"><a href="#8-1-1-概念" class="headerlink" title="8.1.1 概念"></a>8.1.1 概念</h5><p>​    用String类创建的字符串是一个固定的、不可改变的对象</p>
-<p>​    一个字符串常量用双引号括起，如”同志们好”、”88.999”、”hello word”，可以把每个字符串常量当作一个对象来使用。程序执行时，系统自动将字符串常量封装为对象。</p>
-<p>​    字符串是一个对象，必须声明一个变量来引用字符串</p>
-        
-          <a class="article-more-a" href="/2019/07/31/【Java】总结之特殊类/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/31/【Java】总结之特殊类/">展开全文 >></a>
         </p>
       
 

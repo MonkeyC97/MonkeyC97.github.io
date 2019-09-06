@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JVM复习(中) | MonkeyC</title>
+  <title>MonkeyC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。">
+  <meta name="description" content="CMS收集器(老年代收集器，并发GC) 特性：CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器，目前很大一部分的Java应用集中在互联网站或者B/S系统的服务端上，这类应用尤其重视服务的响应速度，希望系统停顿时间最短，希望系统停顿时间最短，以给用户带来较好的体验，CMS收集器就非常符合这类应用的需求。 CMS收集器是基于”标记-清除”算法实现的，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM复习(中)">
-<meta property="og:url" content="http://yoursite.com/2019/09/04/JVM复习(中)/index.html">
+<meta property="og:title" content="MonkeyC">
+<meta property="og:url" content="http://yoursite.com/2019/09/06/JVM复习(下)/index.html">
 <meta property="og:site_name" content="MonkeyC">
-<meta property="og:description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。">
+<meta property="og:description" content="CMS收集器(老年代收集器，并发GC) 特性：CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器，目前很大一部分的Java应用集中在互联网站或者B/S系统的服务端上，这类应用尤其重视服务的响应速度，希望系统停顿时间最短，希望系统停顿时间最短，以给用户带来较好的体验，CMS收集器就非常符合这类应用的需求。 CMS收集器是基于”标记-清除”算法实现的，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-04T09:06:33.982Z">
+<meta property="og:updated_time" content="2019-09-06T12:44:27.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM复习(中)">
-<meta name="twitter:description" content="3.垃圾回收器与内存分配策略3.1如何判断对象已死？3.1.1引用计数法给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。">
+<meta name="twitter:title" content="MonkeyC">
+<meta name="twitter:description" content="CMS收集器(老年代收集器，并发GC) 特性：CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器，目前很大一部分的Java应用集中在互联网站或者B/S系统的服务端上，这类应用尤其重视服务的响应速度，希望系统停顿时间最短，希望系统停顿时间最短，以给用户带来较好的体验，CMS收集器就非常符合这类应用的需求。 CMS收集器是基于”标记-清除”算法实现的，">
   
     <link rel="alternative" href="/atom.xml" title="MonkeyC" type="application/atom+xml">
   
@@ -154,199 +154,142 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JVM复习(中)" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JVM复习(下)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      JVM复习(中)
-    </h1>
-  
-
-        
-        <a href="/2019/09/04/JVM复习(中)/" class="archive-article-date">
-  	<time datetime="2019-09-04T09:06:33.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="3-垃圾回收器与内存分配策略"><a href="#3-垃圾回收器与内存分配策略" class="headerlink" title="3.垃圾回收器与内存分配策略"></a>3.垃圾回收器与内存分配策略</h3><h4 id="3-1如何判断对象已死？"><a href="#3-1如何判断对象已死？" class="headerlink" title="3.1如何判断对象已死？"></a>3.1如何判断对象已死？</h4><h5 id="3-1-1引用计数法"><a href="#3-1-1引用计数法" class="headerlink" title="3.1.1引用计数法"></a>3.1.1引用计数法</h5><p>给对象增加一个引用计数器，当有地方引用这个对象时，计数器的值+1，当引用失效时，计数器的值就-1；任何时刻计数器的值为0的对象就是不能再使用的，就是对象已死。</p>
-<a id="more"></a>
-<p>主流的JVM中没有选用引用计数法来管理内存，最主要的原因还是引用计数法无法解决对象的循环引用问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//观察对象的循环引用问题</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*JVM参数：-xx：PrintGC</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Object instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> _1MB = <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">  <span class="comment">//让对象占用一定的空间，触发回收</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] bigSize = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span> * _1MB];</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testGC</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Test test1 = <span class="keyword">new</span> Test();</span><br><span class="line">        Test test2 = <span class="keyword">new</span> Test();</span><br><span class="line">      <span class="comment">//test1的instance对象引用test2</span></span><br><span class="line">        test1.instance = test2;</span><br><span class="line">      <span class="comment">//test2的instance对象引用test1</span></span><br><span class="line">        test2.instance = test1;</span><br><span class="line">        test1 = <span class="keyword">null</span>;</span><br><span class="line">        test2 = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();<span class="comment">//强制垃圾回收</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        testGC();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//[GC (System.gc()) [PSYoungGen: 6767K-&gt;496K(38400K)] 6767K-&gt;504K(125952K), 0.0041076 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]</span></span><br></pre></td></tr></table></figure>
-
-<p>6767k-&gt;496说明此时对象已经被回收了，所以JVM不采用引用计数法来判断对象是否存活。</p>
-<h5 id="3-1-2可达性分析法"><a href="#3-1-2可达性分析法" class="headerlink" title="3.1.2可达性分析法"></a>3.1.2可达性分析法</h5><p>思想：通过一系列被称为”GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索走过的路径称为引用链，当一个对象到GC Roots没有任何的引用链相连时(从GC Roots到这个对象不可达)时，证明此对象是不可用的。![屏幕快照 2019-09-02 15.14.31](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-02 15.14.31.png)</p>
-<p>如图所示，Object5，6，7都是要被回收的对象。</p>
-<p>在Java语言中，可作为GC Roots的对象包含一下几种：</p>
-<p>1.虚拟机栈(栈桢中的本地变量表)中引用的对象</p>
-<p>2.方法区中类静态属性引用的对象</p>
-<p>3.方法区中常量引用的对象</p>
-<p>4.本地方法栈中JNI(Native方法)引用的对象</p>
-<p>在JDK1.2之前，Java中引用的定义很传统：如果引用的数据类型中存储的数值代表的是另一块内存的起始地址，就称这块内存代表着一个引用。但是这样定义，一个对象只有被引用或者没有被引用的两种状态。</p>
-<p>我们希望能描述这一类对象：当内存空间开足够的时候，则能保存在内存中；如果内存空间在进行垃圾回收之后还是非常紧张，则可以抛弃这些对象，很多系统中的缓存对象都符合这样的场景。</p>
-<p>在JDK1.2之后，Java对引用的概念做了扩充，将引用分为强引用，软引用，若引用，虚引用，这四种强度依次递减。</p>
+        <h4 id="CMS收集器-老年代收集器，并发GC"><a href="#CMS收集器-老年代收集器，并发GC" class="headerlink" title="CMS收集器(老年代收集器，并发GC)"></a>CMS收集器(老年代收集器，并发GC)</h4><ul>
+<li>特性：CMS（Concurrent Mark Sweep）收集器是一种以获取最短回收停顿时间为目标的收集器，目前很大一部分的Java应用集中在互联网站或者B/S系统的服务端上，这类应用尤其重视服务的响应速度，希望系统停顿时间最短，希望系统停顿时间最短，以给用户带来较好的体验，CMS收集器就非常符合这类应用的需求。</li>
+<li>CMS收集器是基于”标记-清除”算法实现的，它的运作过程相对于前面几种收集器来说更复杂一些，整个过程分为4个步骤</li>
+</ul>
 <blockquote>
-<ol>
-<li>强引用 : 强引用指的是在程序代码之中普遍存在的，类似于”Object obj = new Object()”这类的引用，只 要强引用还存在，垃圾回收器永远不会回收掉被引用的对象实例。 </li>
-<li>软引用 : 软引用是用来描述一些还有用但是不是必须的对象。对于软引用关联着的对象，在系统将要发生 内存溢出之前，会把这些对象列入回收范围之中进行第二次回收。如果这次回收还是没有足够的内存，才 会抛出内存溢出异常。在JDK1.2之后，提供了SoftReference类来实现软引用。 </li>
-<li>弱引用 : 弱引用也是用来描述非必需对象的。但是它的强度要弱于软引用。被弱引用关联的对象只能生存 到下一次垃圾回收发生之前。当垃圾回收器开始进行工作时，无论当前内容是否够用，都会回收掉只被弱 引用关联的对象。在JDK1.2之后提供了WeakReference类来实现弱引用。 </li>
-<li>虚引用 : 虚引用也被称为幽灵引用或者幻影引用，它是最弱的一种引用关系。一个对象是否有虚引用的存 在，完全不会对其生存时间构成影响，也无法通过虚引用来取得一个对象实例。为一个对象设置虚引用的 唯一目的就是能在这个对象被收集器回收时收到一个系统通知。在JDK1.2之后，提供了 PhantomReference类来实现虚引用 </li>
-</ol>
+<ul>
+<li>初识标记(CMS inital mark) 初识标记仅仅只是标记一下GC Roots能直接关联到的对象，速度很快，需要”Stop the world”</li>
+<li>并发标记（CMS concurrent mark）并发标记阶段就是进行GC Roots Tracing的过程</li>
+<li>重新标记（CMS remark）重新标记阶段是为了修正并发标记期间，因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初识标记阶段稍长一些，但远比并发标记的时间短，仍然需要”Stop The Wrold”。</li>
+<li>并发清除：（CMS concurrent sweep）并发清除清除对象</li>
+</ul>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*软引用何时被收集</span></span><br><span class="line"><span class="comment">*JVM参数：-Xmx200m -XX:PrintGC</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SoftReference</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">//100M缓存数据</span></span><br><span class="line">        <span class="keyword">byte</span>[] cacheData = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span>];</span><br><span class="line">        <span class="comment">//将缓存数据用软引用持有</span></span><br><span class="line">        java.lang.ref.SoftReference&lt;<span class="keyword">byte</span>[]&gt; softReference = <span class="keyword">new</span> java.lang.ref.SoftReference&lt;&gt;(cacheData);</span><br><span class="line">        <span class="comment">//将缓存数据的强引用去除</span></span><br><span class="line">        cacheData = <span class="keyword">null</span>;</span><br><span class="line">        System.out.println(<span class="string">"第一次GC前"</span>+cacheData);</span><br><span class="line">        System.out.println(<span class="string">"第一次GC前"</span>+softReference.get());</span><br><span class="line">        <span class="comment">//进行强制垃圾回收</span></span><br><span class="line">        System.gc();</span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        System.out.println(<span class="string">"第一次GC之后"</span>+cacheData);</span><br><span class="line">        System.out.println(<span class="string">"第一次GC之后"</span>+softReference.get());</span><br><span class="line">        <span class="comment">//再分配一个120M的对象，看看回收之后对象的情况</span></span><br><span class="line">        <span class="keyword">byte</span>[] newCacheData = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">120</span> * <span class="number">1024</span> * <span class="number">1024</span>];</span><br><span class="line">        System.out.println(<span class="string">"分配之后"</span>+cacheData);</span><br><span class="line">        System.out.println(<span class="string">"分配之后"</span>+softReference.get());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>打印信息：</p>
-<p><code>第一次GC前null
-第一次GC前[B@63947c6b
-[GC (System.gc())  105071K-&gt;102920K(175104K), 0.0021991 secs]
-[Full GC (System.gc())  102920K-&gt;102821K(175104K), 0.0086113 secs]
-第一次GC之后null
-第一次GC之后[B@63947c6b
-[GC (Allocation Failure)  103486K-&gt;102853K(175104K), 0.0017569 secs]
-[GC (Allocation Failure)  102853K-&gt;102853K(175104K), 0.0016118 secs]
-[Full GC (Allocation Failure)  102853K-&gt;102804K(175104K), 0.0047356 secs]
-[GC (Allocation Failure)  102804K-&gt;102804K(199680K), 0.0018186 secs]
-[Full GC (Allocation Failure)  102804K-&gt;387K(126976K), 0.0102129 secs]
-分配之后null
-分配之后null</code></p>
-<p>可以看出第一次GC没有直接回收软引用关联的对象，而是发现回收之后内存还是不足才进行了软引用对象的回收。</p>
-<p><font color="red">抛出问题：即时在可达性分析算法中不可达的对象，一定会被GC回收吗？</font></p>
-<p>答案是否定的。</p>
-<p>即使在可达性分析算法中不可达的对象，也并非”非死不可”的，这时候他们暂时处在”缓刑”阶段。要宣告一个对象的 真正死亡，至少要经历两次标记过程 : 如果对象在进行可达性分析之后发现没有与GC Roots相连接的引用链，那它将 会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行finalize()方法。当对象没有覆盖finalize()方 法或者finalize()方法已经被JVM调用过，虚拟机会将这两种情况都视为”没有必要执行”，此时的对象才是真正”死”的 对象。 </p>
-<p>如果这个对象被判定为有必要执行finalize()方法，那么这个对象将会被放置在一个叫做F-Queue的队列之中，并在稍 后由一个虚拟机自动建立的、低优先级的Finalizer线程去执行它(这里所说的执行指的是虚拟机会触发finalize()方 法)。finalize()方法是对象逃脱死亡的最后一次机会，稍后GC将对F-Queue中的对象进行第二次小规模标记，如果 对象在finalize()中成功拯救自己(只需要重新与引用链上的任何一个对象建立起关联关系即可)，那在第二次标记时它 将会被移除出”即将回收”的集合;如果对象这时候还是没有逃脱，那基本上它就是真的被回收了。 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从代码示例我们发现，finalize方法确实被JVM触发，并且对象在被收集前成功逃脱。</span></span><br><span class="line"><span class="comment"> * 但是从结果上我们发现，两个完全一样的代码片段，结果是一次逃脱成功，一次失败</span></span><br><span class="line"><span class="comment"> * 这是因为，任何一个对象的 finalize()方法都只会被系统自动调用一次，</span></span><br><span class="line"><span class="comment"> * 如果相同的对象在逃脱一次后又面临一次回收，它的finalize()方法不会被再次执行，因此第二段代码的自救行动失败。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 观察对象的自我拯救(finalize方法)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test5</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Test4 test;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">isAlive</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"I am alive"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.finalize();</span><br><span class="line">        System.out.println(<span class="string">"finalize method executed"</span>);</span><br><span class="line">        test = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        test = <span class="keyword">new</span> Test4();</span><br><span class="line">        test = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();</span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        <span class="keyword">if</span>(test != <span class="keyword">null</span>)&#123;</span><br><span class="line">            test.isAlive();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Oh no I am dead"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        test = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();</span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        <span class="keyword">if</span>(test != <span class="keyword">null</span>)&#123;</span><br><span class="line">            test.isAlive();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"I am dead"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">finalize method executed</span></span><br><span class="line"><span class="comment">I am alive</span></span><br><span class="line"><span class="comment">I am dead</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2回收方法区"><a href="#3-2回收方法区" class="headerlink" title="3.2回收方法区"></a>3.2回收方法区</h4><p>方法区(永久代)的垃圾回收主要收集两部分内容 : 废弃常量和无用的类。 </p>
-<p>回收废弃常量和回收Java堆中的对象十分类似。以常量池中字面量(直接量)的回收为例，假如一个字符串”abc”已经进 入了常量池中，但是当前系统没有任何一个String对象引用常量池的”abc”常量，也没有在其他地方引用这个字面量， 如果此时发生GC并且有必要的话，这个”abc”常量会被系统清理出常量池。常量池中的其他类(接口)、方法、字段的 符号引用也与此类似。 </p>
-<p>判定一个类是否是”无用类”则相对复杂很多。类需要同时满足下面三个条件才会被算是”无用的类” : </p>
-<ol>
-<li><p>该类所有实例都已经被回收(即在Java堆中不存在任何该类的实例)</p>
-</li>
-<li><p>加载该类的ClassLoader已经被回收</p>
-</li>
-<li><p>该类对应的Class对象没有在任何其他地方被引用，无法在任何地方通过反射访问该类的方法 </p>
-</li>
-</ol>
-<p>JVM可以对同时满足上述3个条件的无用类进行回收，也仅仅是”可以”而不是必然。在大量使用反射、动态代理等场景 都需要JVM具备类卸载的功能来防止永久代的溢出。 </p>
-<h3 id="3-3垃圾回收算法"><a href="#3-3垃圾回收算法" class="headerlink" title="3.3垃圾回收算法"></a>3.3垃圾回收算法</h3><h5 id="3-3-1标记-清除算法"><a href="#3-3-1标记-清除算法" class="headerlink" title="3.3.1标记-清除算法"></a>3.3.1标记-清除算法</h5><p>分为两阶段：标记和清除，首先标记出所有要回收的对象，在标记完成后统一回收所有被标记的对象。</p>
-<p>![屏幕快照 2019-09-02 16.10.22](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-02 16.10.22.png)</p>
-<p>标记-清除算法的不足主要有两个：</p>
+<p>优点：并发收集、低停顿</p>
+<p>缺点：</p>
 <ul>
-<li>效率问题：标记清除这两个阶段的效率都不高</li>
-<li>空间问题：标记清除之后会产生大量不连续的内存碎片，空间碎片太多的话可能导致以后程序运行中需要分配较大的对象的时候，无法找到足够的连续内存而不得不提前触发一次垃圾收集</li>
+<li>CMS收集器对CPU资源非常敏感，CMS默认启动的回收线程数是<code>（CPU + 3）/ 4</code>,也就是当CPU在4个以上时，并发回收时垃圾收集线程不少于25%的CPU资源，并且随着CPU数量的增加而下降，但是当CPU不足4个时，CMS对用户程序的影响就可能变得很大</li>
+<li>CMS收集器无法处理浮动垃圾CMS收集器无法处理浮动垃圾，可能出现”Concurrent Mode Failure”失败而导致另一次Full GC的产生，由于CMS并发清理阶段用户线程还在运行着，伴随程序自然就还会有新的垃圾不断产生，这一部分垃圾出现在标记过程之后，CMS无法在当次垃圾收集中处理掉它们，只好留到下一次GC的时候处理，这一部分成为浮动垃圾。由于在垃圾收集阶段用户线程还需要运行，哪也就还需要预留足够的内存空间给用户线程使用，而在CMS运行期间预留的内存无法被满足程序需要，也就是当前的对象想要进入老年代但是老年代的内存空间不足而导致<code>Concurrent Mode Failure</code>，这时候虚拟机将启用Serial Old收集器来重新进行老年代的垃圾收集，这样停顿时间也就很长了。</li>
+<li>CMS是基于标记-清除算法，所以会产生大量的空间碎片，空间碎片较多时，将会给大对象的分配带来很大麻烦，往往会出现老年代还有很大空间剩余，但是无法找到足够大的连续空间来分配当前对象，不得不提前出发一次Full GC</li>
 </ul>
-<h5 id="3-3-2复制算法-新生代回收算法"><a href="#3-3-2复制算法-新生代回收算法" class="headerlink" title="3.3.2复制算法(新生代回收算法)"></a>3.3.2复制算法(新生代回收算法)</h5><p>“复制”算法是为了解决”标记-清理”的效率问题。它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这块内存需要进行垃圾回收时，会将此区域还存活着的对象复制到另一块上面，然后再把已经使用过的内存区域一次清理掉。这样做的好处是每次都是对整个半区进行内存回收，内存分配时也就不需要考虑内存碎片等复杂情况，只需要移动堆顶指针，按顺序分配即可。此算法实现简单，运行高效。算法的执行流程如下图 </p>
-<p>![屏幕快照 2019-09-02 16.24.32](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-02 16.24.32.png)</p>
-<p>*<em>现在的商用虚拟机(包括HotSpot都是采用这种收集算法来回收新生代) *</em></p>
-<p>新生代中98%的对象都是”朝生夕死”的，所以并不需要按照1 : 1的比例来划分内存空间，而是将内存(新生代内存)分 为一块较大的Eden(伊甸园)空间和两块较小的Survivor(幸存者)空间，每次使用Eden和其中一块Survivor(两个 Survivor区域一个称为From区，另一个称为To区域)。当回收时，将Eden和Survivor中还存活的对象一次性复制到 另一块Survivor空间上，最后清理掉Eden和刚才用过的Survivor空间。 </p>
-<p>当Survivor空间不够用时，需要依赖其他内存(老年代)进行分配担保。<br> HotSpot默认Eden与Survivor的大小比例是8 : 1，也就是说Eden:Survivor From : Survivor To = 8:1:1。所以每次新 </p>
-<p>生代可用内存空间为整个新生代容量的90%,而剩下的10%用来存放回收后存活的对象。 HotSpot实现的复制算法流程如下: </p>
-<blockquote>
-<ol>
-<li><p>当Eden区满的时候,会触发第一次Minor gc,把还活着的对象拷贝到Survivor From区;当Eden区再次触发 Minor gc的时候,会扫描Eden区和From区域,对两个区域进行垃圾回收,经过这次回收后还存活的对象,则直 接复制到To区域,并将Eden和From区域清空。 </p>
-</li>
-<li><p>当后续Eden又发生Minor gc的时候,会对Eden和To区域进行垃圾回收,存活的对象复制到From区域,并将 Eden和To区域清空。 </p>
-</li>
-<li><p>部分对象会在From和To区域中复制来复制去,如此交换15次(由JVM参数MaxTenuringThreshold决定,这个 参数默认是15),最终如果还是存活,就存入到老年代 </p>
-</li>
-</ol>
+<h4 id="G1收集器（唯一一款全区域的垃圾回收器）"><a href="#G1收集器（唯一一款全区域的垃圾回收器）" class="headerlink" title="G1收集器（唯一一款全区域的垃圾回收器）"></a>G1收集器（唯一一款全区域的垃圾回收器）</h4><p>G1(Garbage First) 垃圾回收器使用在heap memory很大的情况下，把heap划分为很多很多的region块，然后并行的对其进行垃圾回收。</p>
+<p>G1垃圾回收器在清除实例所占用的内存空间之后，还会做内存压缩。</p>
+<p>G1垃圾回收器回收region的时候基本不会STW，而是基于most garbage 有限回收(整体来看是基于标记-整理)算法，从局部（两个region之间）基于复制算法的策略来对region进行垃圾回收的。无论如何，G1收集器采用的算法都意味着一个region有可能属于Eden，Survivor或者Tenured内存区域，图中的E表示该region属于Eden内存区域，S表示属于Survivor内存区域，T表示属于Tenured内存区域。图中空白的表示未使用的内存空间。G1垃圾收集器还增加了一个新的内存区域，叫做Humongous内存区域，如图中的H块，这种内存区域主要用于存储大对象，即大小超过一个region大小的50%的对象。</p>
+<h5 id="年轻代垃圾收集"><a href="#年轻代垃圾收集" class="headerlink" title="年轻代垃圾收集"></a>年轻代垃圾收集</h5><p>在G1垃圾收集中，年轻代的垃圾回收过程使用复制算法，把Eden区和Surivor区的对象复制到新的Survivor区域。</p>
+<h5 id="老年代垃圾收集"><a href="#老年代垃圾收集" class="headerlink" title="老年代垃圾收集"></a>老年代垃圾收集</h5><blockquote>
+<ul>
+<li>初始标记和CMS初识标记一样，找到可达对象的根结点，但是G1的垃圾收集器的初始标记阶段是跟minor gc一同发生的，也就是说，在G1中，你不用像在CMS那样，单独暂停应用程序的执行来运行inital mark阶段，而是在G1minor gc的时候一并将老年代上的inital Mark给做了</li>
+<li>并发标记(Concurrent Mark阶段) 在这个阶段G1做的事情跟CMS一样，但是G1多座了一件事情，那就是如果在并发标记阶段，发现哪些Tenured region中对象的存活率很小或者基本没有对象存活，那么G1就会在这个阶段将其回收掉，这也是G1(Garbage first)的命名来源。</li>
+<li>最终标记：G1采用一种叫做SATB(snapshot-at-the-begining)的算法能够在Remark阶段更快的标记可达对象</li>
+<li>筛选回收（Clean up/Copy）阶段，在G1中，没有CMS中对应的Sweep阶段，相反它有一个Clean up/Copy 阶段，在这个阶段，G1会挑选出哪些对象存活率较低的region进行回收，这个阶段也是和minor gc一同发生的</li>
+</ul>
 </blockquote>
-<p>![image-20190902163124838](/Users/houchang/Library/Application Support/typora-user-images/image-20190902163124838.png)</p>
-<p>新生代各区占比如上图所示。</p>
-<h5 id="3-3-3标记-整理算法（老年代回收算法）"><a href="#3-3-3标记-整理算法（老年代回收算法）" class="headerlink" title="3.3.3标记-整理算法（老年代回收算法）"></a>3.3.3标记-整理算法（老年代回收算法）</h5><p>复制收集算法在对象存活率较高的时候会进行比较多的复制操作，效率会变低，所以在对象存活率较高的老年代，采用标记整理算法。</p>
-<p>![屏幕快照 2019-09-02 16.38.43](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-02 16.38.43.png)</p>
-<p>标记过程与标记清除过程一样，但后续步骤不是直接对可回收对象进行处理，而是让所有存活对象都向一端移动，然后直接清理掉端边界以外的内存。</p>
-<h5 id="3-3-4分代收集算法"><a href="#3-3-4分代收集算法" class="headerlink" title="3.3.4分代收集算法"></a>3.3.4分代收集算法</h5><p>当前JVM垃圾收集都采用的是”分代收集（Generational Collection）”，这个算法并没有新思想，知识根据对象存活周期的不同将内存划分为几块。</p>
-<p>一般是把Java Heap划分成新生代和老年代。新生代，每次回收都有大量的对象死去，采用复制算法。</p>
-<p>而老年代中对象存活率高、没有额外空间对它进行分配担保，就必须采用标记整理或者标记清除算法。</p>
-<p><strong><em>问题引出</em></strong></p>
-<p>请问了解Minor GC和Full GC吗？有什么不一样？</p>
-<blockquote>
-<p>1.Minor GC又被称为新生代GC，指的是发生在新生代的垃圾收集，因为Java对象大多都是存活率低，朝生夕灭，因此MinorGC采用复制算法比较多，回收速度也快。</p>
-<p>2.Full GC 又称为老年代GC：指的是发生在老年代的垃圾回收，出现了MaiorGC，一般都会伴随至少一次的MinorGC，但是也有例外，在Parallel Scavenge收集器中就有直接进行FullGC的策略选择过程。Major GC的速度一般会比Minor GC慢10倍以上。</p>
-</blockquote>
-<h4 id="3-4垃圾收集器"><a href="#3-4垃圾收集器" class="headerlink" title="3.4垃圾收集器"></a>3.4垃圾收集器</h4><p>HotSpot虚拟机包含的收集器如下图所示：</p>
-<p>![屏幕快照 2019-09-02 17.08.14](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-02 17.08.14.png)</p>
-<p>如果两个收集器之间存在连线，就说明它们之间可以搭配使用。</p>
+<p>####3.5内存分配与回收策略</p>
+<h5 id="3-5-1对象优先在Eden区分配"><a href="#3-5-1对象优先在Eden区分配" class="headerlink" title="3.5.1对象优先在Eden区分配"></a>3.5.1对象优先在Eden区分配</h5><p>大多数情况下，对象在新生代的Eden区域分配，当Eden区没有足够的空间进行分配的时候，虚拟机将发生一次Minor GC</p>
+<h5 id="3-5-2大对象直接进入老年代"><a href="#3-5-2大对象直接进入老年代" class="headerlink" title="3.5.2大对象直接进入老年代"></a>3.5.2大对象直接进入老年代</h5><p>所谓的大对象是指，需要大量连续空间的Java对象，最典型的大对象就是那种很长的字符串或者数组。</p>
+<p>使用<code>-XX:PretenureSizeThreshold = 3145728</code>（3MB）来设置超过3MB的对象都会被直接放到老年代</p>
+<h5 id="3-5-3长期存活的对象将进入老年代"><a href="#3-5-3长期存活的对象将进入老年代" class="headerlink" title="3.5.3长期存活的对象将进入老年代"></a>3.5.3长期存活的对象将进入老年代</h5><p>使用<code>-XX:MaxTenuringThreshold = n</code>来设置新生代最大年龄，JVM默认值是15。</p>
+<h5 id="3-5-4动态对象年龄判定"><a href="#3-5-4动态对象年龄判定" class="headerlink" title="3.5.4动态对象年龄判定"></a>3.5.4动态对象年龄判定</h5><p>为了能更好的适应不同的程序内存状况，JVM并不是永远要求年龄必须达到<code>MaxTenuringThreshold</code>才能晋升老年代，如果在Survivor区，年龄相等的对象大小总和大于Survivor空间的一半，年龄大于或者等于该年龄的对象就可以进入老年代，无须等到MaxTenuringThreshold中要求的年龄</p>
+<h5 id="3-5-5空间分配担保"><a href="#3-5-5空间分配担保" class="headerlink" title="3.5.5空间分配担保"></a>3.5.5空间分配担保</h5><p>在发生Minor GC之前，虚拟机会检查老年代最大可用的连续空间是否大于新生代所有对象的总空间。</p>
 <ul>
-<li><p>并行（Parallel）：指多条垃圾收集线程并行工作，用户线程仍处于等待状态。</p>
-</li>
-<li><p>并发（Concurrent）：指用户线程和垃圾线程同时执行（不一定并行，可能会交替执行），用户程序继续运行，而垃圾收集程序再另外一个CPU上。</p>
-</li>
-<li><p>吞吐量：</p>
-<p>​        吞吐量 = 运行用户代码时间/(运行用户代码时间 + 垃圾收集时间)</p>
-<p>例如：虚拟机总共运行了100分钟，其中垃圾回收用了1分钟，吞吐量就为99%</p>
-<h5 id="3-4-1Serial收集器"><a href="#3-4-1Serial收集器" class="headerlink" title="3.4.1Serial收集器"></a>3.4.1Serial收集器</h5><ul>
-<li><p>特性</p>
-<p>​        这个收集器是一个单线程的收集器，它最大的特点不只是它只会使用一个CPU或一条收集线程去完成垃圾收集工作，更重要的是在它垃圾回收的时候，必须停掉其他的工作线程，知道它收集结束（Stop The World）</p>
-</li>
-<li><p>应用场景</p>
-<p>​        Serial收集器是虚拟机运行在Client模式下的默认新生代收集器</p>
-</li>
-<li><p>优势</p>
-<p>​        简单而高效（与其他的收集器的单线程相比），对于限定单个CPU的环境来说，Serial收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率。</p>
-</li>
+<li>如果大于，那么此次Minor GC是安全的</li>
+<li>如果小于，则虚拟机会查看<code>HandlePromotionFailure</code>设置值是否允许担保失败，如果<code>HandlePromotionFailure=true</code>那么会继续检查老年代最大连续空间是否大于历次晋升到老年代的对象的平均大小，如果大于，则尝试进行一次Minor GC，但这次Minor GC依然是有风险的；如果小于或者<code>HandlePromotionFailure = false</code>，则改为进行一次Full GC</li>
 </ul>
-</li>
-</ul>
-<p>![屏幕快照 2019-09-02 17.28.50](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-02 17.28.50.png)</p>
-<h5 id="3-4-2ParNew收集器-新生代收集器，并行GC"><a href="#3-4-2ParNew收集器-新生代收集器，并行GC" class="headerlink" title="3.4.2ParNew收集器(新生代收集器，并行GC)"></a>3.4.2ParNew收集器(新生代收集器，并行GC)</h5><p>​    ParNew收集器其实就是Serial收集器的多线程版本，除了使用多线程进行垃圾收集之外，其余行为包括Serial收集器可用的所有控制参数，收集算法，Stop The World，对象分配规则、回收策略都与Serial收集器完全一样。</p>
+<p>上面提到的此时Minor GC也是有风险的，是因为新生代采用的是复制算法，假如大量对象在Minor GC之后还存活，(最极端的情况为内存回收后新生代中所有对象均存活)而Survivor空间是比较小的，这时就需要老年代进行分配担保，把Survivor无法容纳的对象放在老年代，老年代要进行空间分配担保，必须拥有足够的空间才能容纳这些对象，但一共有多少对象在内存回收后存活下来是不可预知的，因此只好<strong>取之前每次垃圾回收之后晋升到老年代对象大小的平均值作为参考</strong>，使用这个平均值与老年代剩余空间相比，来决定是否进行Full GC了；来让老年代腾出更多的空间。</p>
+<h3 id="常用JVM性能监控与故障处理工具"><a href="#常用JVM性能监控与故障处理工具" class="headerlink" title="常用JVM性能监控与故障处理工具"></a>常用JVM性能监控与故障处理工具</h3><h4 id="JDK命令行工具"><a href="#JDK命令行工具" class="headerlink" title="JDK命令行工具"></a>JDK命令行工具</h4><table>
+<thead>
+<tr>
+<th>命令名称</th>
+<th>全称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>jps</td>
+<td>JVM Process Status Tool</td>
+<td>显示制定系统内所有的HotSpot虚拟机进程</td>
+</tr>
+<tr>
+<td>jstat</td>
+<td>JVM Statistics Monitoring</td>
+<td>用于收集HotSpot虚拟机个方面的运行数据</td>
+</tr>
+<tr>
+<td>jinfo</td>
+<td>Configuration Info for Java</td>
+<td>显示虚拟机配置信息</td>
+</tr>
+<tr>
+<td>jmap</td>
+<td>JVM Memory Map</td>
+<td>生成虚拟机的内存转储快快照，生成heapdump文件</td>
+</tr>
+<tr>
+<td>jhat</td>
+<td>JVM Heap Dump Browser</td>
+<td>用于很细heapdump文件，它会简历一个HTTP/HTML服务器，让用户在浏览器上查看分析结果</td>
+</tr>
+<tr>
+<td>jstack</td>
+<td>JVM Stack Trace</td>
+<td>显示虚拟机的线程快照</td>
+</tr>
+</tbody></table>
+<h3 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h3><p>JVM定义了一种Java内存模型(Java Memory Model，JMM) 来屏蔽掉各种硬件和操作系统的内存访问差异，以实现让Java程序在各种平台下都能达到一致的内存访问效果，在此之前，C/C++直接使用物理硬件，和操作系统的内存模型因，因此会犹豫不同平台下的内存模型的差异，有可能导致程序在一套平台上并发完全正常，而在另一套并发平台上并发访问经常出错。</p>
+<h4 id="1-主内存和工作内存"><a href="#1-主内存和工作内存" class="headerlink" title="1.主内存和工作内存"></a>1.主内存和工作内存</h4><p>Java内存模型的主要目标是定义程序中各个变量的访问规则，即在JVM中将变量存储到内存和从内存中取出变量这样的底层细节，此处的变量包括<strong>实例字段、静态字段和构成数组对象的元素</strong>，但是不包括局部变量和方法参数，因为后两者是线程私有的，不会被线程共享。</p>
+<p>Java内存模型规定所有的变量都必须存储在主内存中，每条线程还有自己的工作内存，现成的工作内存中保存了被该线程使用到的变量的值主内存副本拷贝，线程对变量的所有操作(读取，赋值等)都必须在工作内存中进行，而不能直接读写主内存中的变量。不同的线程之间也无法直接访问对方工作内存中的变量，线程间变量值的传递均需要通过主内存来完成。</p>
+<h4 id="2-内存间相互操作"><a href="#2-内存间相互操作" class="headerlink" title="2.内存间相互操作"></a>2.内存间相互操作</h4><p>关于主内存和工作内存之间的具体交互协议，即一个变量如何从主内存中拷贝到工作内存、如何从工作内存同步回主内存之类的实现细节，Java内存模型中定义了如下8中操作来完成。</p>
 <ul>
-<li>特性：</li>
+<li>lock(锁定)：作用于主内存的变量，他把一个变量标示为一条线程独占的状态。</li>
+<li>unlock(锁定)：作用于主内存的变量，它把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定。</li>
+<li>read(读取)：作用于主内存的变量，它把一个变量的值从主内存传输到线程的工作内存中去，以便随后的load动作使用。</li>
+<li>load（载入）：作用于工作内存的变量，它把read操作从主内存中得到的变量值放入工作内存的变量副本中去。</li>
+<li>use（使用）：作用于工作内存的变量，它把工作内存中一个变量的值赋给执行引擎。</li>
+<li>assign（赋值）：作用于工作内存的变量，它把一个从执行引擎收到的值赋给工作内存的变量。</li>
+<li>store（存储）：作用于工作内存的变量，它把工作内存中一个变量的值传送到主内存中，以便后续的write操作使用</li>
+<li>write（写入）：作用于主内存的变量，它把store操作从工作内存中的到的变量的值放入主内存的变量中</li>
 </ul>
-<p>Serial收集器的多线程版本</p>
+<h4 id="Java内存模型的三大特性："><a href="#Java内存模型的三大特性：" class="headerlink" title="Java内存模型的三大特性："></a>Java内存模型的三大特性：</h4><ul>
+<li><strong>原子性</strong>：一个操作或者多个操作要么全部执行并且执行的过程不被任何因素打断，要么全部不执行。<ul>
+<li>read、load、assign、use、store、read大致可以认为，基本数据类型的访问读写是具备原子性的</li>
+</ul>
+</li>
+<li><strong>可见性</strong>：可见性是指当一个线程修改了共享变量的值，其他线程能够立即得知这个修改。volatile、synchronized、final三个关键字可以实现可见性</li>
+<li><strong>有序性</strong>：如果在本线程内观察，所有的操作都是有序的；如果在线程中观察另外一个线程，所有的操作都是无序的。前半句是指”线程内表现为串行”，后半句是指”指令重新排序”和”工作内存与主内存同步延迟”现象</li>
+</ul>
+<p>Java内存模型具备一些先天的”有序性“，即不需要通过任何手段就能够得到保证的有序性，这个通常也称为<code>happens-before</code>先行发生原则原则。</p>
+<p><code>happens-before</code>原则。如果两个操作的执行次序无法从<code>happens-before</code>原则推导出来，那么它们就不能保证它们的有序性，虚拟机可以随意地对他们进行重排序。</p>
 <ul>
-<li><p>应用场景：</p>
-<p>ParNew收集器是许多运行在Server模式下的虚拟机中首选的新生代收集器</p>
-<p>作为Server的首选收集器之中有一个与性能无关的很重要的原因是:除了Serial收集器外，目前只有它能与CMS收集器配合工作。 在JDK 1.5时期，HotSpot推出了一款在强交互应用中几乎可认为有划时代意义的垃圾收集器——CMS收集器，这款收集器是HotSpot虚拟机中第一款真正意义上的并发收集器，它第一次实现了让垃圾收集线程与用户线程同时工作。 不幸的是，CMS作为老年代的收集器，却无法与JDK 1.4.0中已经存在的新生代收集器Parallel Scavenge配合工作，所以在JDK 1.5中使用CMS来收集老年代的时候，新生代只能选择ParNew或者Serial收集器中的一个。</p>
+<li><p>程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生与书写在后面的操作。</p>
 </li>
-<li><p>对比分析：</p>
-<p>与Serial收集器相比：</p>
-<p>ParNew收集器在单CPU环境中绝对不会有比Serial收集器更好的效果，甚至有雨存在线程交互的开销，该收集器在通过超线程技术实现的两个CPU的环境中都不能百分之百地保证可以超越Serial收集器。</p>
-<p>然而，随着可以使用的CPU的数量的增加，它对于GC时系统资源的有效利用还是很有好处的。</p>
-<p>![屏幕快照 2019-09-02 17.35.44](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-02 17.35.44.png)</p>
+<li><p>锁定规则：一个unlock操作先行发生与后面对同一个锁的lock操作</p>
 </li>
-</ul>
-<h5 id="3-4-3Parallel-Scavenge收集器-新生代收集器，并行GC"><a href="#3-4-3Parallel-Scavenge收集器-新生代收集器，并行GC" class="headerlink" title="3.4.3Parallel Scavenge收集器(新生代收集器，并行GC)"></a>3.4.3Parallel Scavenge收集器(新生代收集器，并行GC)</h5><ul>
-<li><p>特性：</p>
-<p>Parallel Scavenge收集器是一个新生代收集器，它也是使用复制算法的收集器，又是并行的多线程收集器。</p>
-<p>Parallel Scanvenge收集器使用两个参数控制吞吐量：</p>
-<p>-XX:MaxGCPauseMillis控制最大的垃圾收集停顿时间</p>
-<p>-XX:GCRatio直接设置吞吐量的大小</p>
-<p>直观上，只要最大的垃圾收集停顿时间越小，吞吐量是越高的，但是<strong>GC停顿时间的缩短是以牺牲吞吐量和新生代空间为代价的</strong>，比如原来10秒收集一次，每次停顿100ms，现在变成5秒收集一次，每次停顿70ms。停顿时间下降的同时，吞吐量也下降了。</p>
+<li><p>volatile变量规则：对一个变量的写操作先行发生与后面对这个变量的读操作</p>
+</li>
+<li><p>传递规则：如果操作A先行发生与操作B，而操作B又先行发生与操作C，则可以得出操作A先行发生与操作C</p>
+</li>
+<li><p>线程启动规则：Thread对象的start()方法先行发生于此线程的每一个动作</p>
+</li>
+<li><p>线程终端规则：对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生</p>
+</li>
+<li><p>线程终结规则：线程中所有操作都先行发生与线程的种植检测，我们可以通过Thread.join()方法结束</p>
+<p>​    Thread.isAlive()的返回值手段检测到线程已经终止执行</p>
+</li>
+<li><p>对象终结规则：一个对象的初始化完成先行发生与他的finalize()方法的开始</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  应用场景:</span><br><span class="line">停顿时间越短就越适合需要与用户交互的程序，良好的响应速度能提升用户体验，而高吞吐量则可以高效率地利用</span><br></pre></td></tr></table></figure>
+<p>也就是说，要想并发程序正确地执行，必须要保证原子性、可见性、以及有序性，只要有一个没有被保证，就有可能会导致程序运行不正确</p>
+<h4 id="volatile型变量的特殊规则"><a href="#volatile型变量的特殊规则" class="headerlink" title="volatile型变量的特殊规则"></a>volatile型变量的特殊规则</h4><p>关键字volatile可以说是JVM提供的最轻量级的同步机制，当一个变量定义为volatile之后，它将具备两种特性。</p>
+<p><strong>第一：保证此变量对所有线程的可见性</strong>，这里的可见性是指：当一条线程修改了这个变量的值，新值对于其他线程来说是可以立即得知的。而普通变量做不到这一点，普通变量的值在线程间传递均需要通过主内存来完成。例如：线程A修改一个普通变量的值，然后向主内存进行回写，另外一条线程B在线程A回写完成之后再从主内存进行读取操作，新值才会对线程B可见。</p>
+<p>关于volatile变量的可见性，经常会被开发人员误解，volatile变量在各个线程中是一致的，但是<strong><em>volatile变量的运算在并发下一样是不安全的。</em></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> staitc <span class="keyword">volatile</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">increase</span><span class="params">()</span></span>&#123;</span><br><span class="line">    num++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> viod <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    Thread[] threads = <span class="keyword">new</span> Thread[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>;i++)&#123;</span><br><span class="line">      threads[i] = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>;j++)&#123;</span><br><span class="line">            increase();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      threads[i].start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(Thread.activeCount() &gt; <span class="number">2</span>)&#123;</span><br><span class="line">      Thread.yield();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(num);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>CPU时间，尽快完成程序的运算任务，主要适合在后台运算而不需要太多交互的任务。 对比分析: </p>
-<p>​    Parallel Scavenge收集器 VS CMS等收集器: Parallel Scavenge收集器的特点是它的关注点与其他收集 器不同，CMS等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收 集器的目标则是达到一个可控制的吞吐量(Throughput)。 由于与吞吐量关系密切，Parallel Scavenge 收集器也经常称为“吞吐量优先”收集器。 </p>
-<p>​    Parallel Scavenge收集器 VS ParNew收集器: Parallel Scavenge收集器与ParNew收集器的一个重要区 </p>
-<p>别是它具有自适应调节策略。 GC自适应的调节策略: </p>
-<p>​    Parallel Scavenge收集器有一个参数- XX:+UseAdaptiveSizePolicy 。当这个参数打开之后，就不需要手工指 定新生代的大小、Eden与Survivor区的比例、晋升老年代对象年龄等细节参数了，虚拟机会根据当前系统的运 行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量，这种调节方式称为 GC自适应的调节策略(GC Ergonomics)。 </p>
-<p>注:工作流程图同ParNew </p>
-<h5 id="3-4-4Serial-Old收集器（老年代收集器，串行GC）"><a href="#3-4-4Serial-Old收集器（老年代收集器，串行GC）" class="headerlink" title="3.4.4Serial Old收集器（老年代收集器，串行GC）"></a>3.4.4Serial Old收集器（老年代收集器，串行GC）</h5><ul>
-<li>特性：Serial Old是Serial收集器的老年代版本，它同样是一个单线程收集器，使用标记-整理算法</li>
-<li>应用场景：<ul>
-<li>Client模式Serial Old收集器的主要意义也是在于给Client模式下的虚拟机使用</li>
-<li>Server模式，如果在Server模式下，那么它主要还有两大用途：一种用途是在JDK1.5以及之前的版本中于Parallel Scavenge收集器搭配使用，另一种用途就是作为CMS收集器的后备预案，在并发收集发生Concurrent Mode Failure时使用。</li>
-</ul>
-</li>
-</ul>
-<p>![屏幕快照 2019-09-02 17.28.50](/Users/houchang/Desktop/  /blog/屏幕快照 2019-09-02 17.28.50.png)</p>
-<h5 id="3-4-5Parallel-Old收集器-老年代收集器，并行GC"><a href="#3-4-5Parallel-Old收集器-老年代收集器，并行GC" class="headerlink" title="3.4.5Parallel Old收集器(老年代收集器，并行GC)"></a>3.4.5Parallel Old收集器(老年代收集器，并行GC)</h5><ul>
-<li><p>特性：Parallel Old 是Parallel Scavenge收集器的老年代版本，使用多线程和标记整理算法</p>
-</li>
-<li><p>应用场景：</p>
-<p>​    在注重吞吐量以及CPU资源敏感的场合，都可以优先考虑Parallel Scavenge加Parallel Old收集器。</p>
-</li>
-</ul>
-<p>这个收集器是在JDK1.6中才开始提供的，在此之前，新生代选择Parallel Scavenge收集器，老年代除了Serial Old 收集器外别无选择(Parallel Scavenge收集器无法与CMS收集器搭配使用) 。由于老年代Serial Old收集器在服务端应用性能上的“拖累”，使用了ParallelScavenge收集器也未必能在整体应用上获得吞吐量最大化的效果，由于单线程的老年代收集中无法充分利用服务器多CPU的处理能力，在老年代很大而且硬件比较高级的环境中，这种组合的吞吐量甚至还不一定有ParNew加CMS的组合“给力”。直到Parallel Old收集器出现后，“吞吐量优先”收集器终于有了比较名副其实的应用组合。</p>
-<p>![屏幕快照 2019-09-03 18.06.51](/Users/houchang/Desktop/屏幕快照 2019-09-03 18.06.51.png)</p>
 
       
 
@@ -436,7 +379,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/04/JVM复习(中)/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/06/JVM复习(下)/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -450,18 +393,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/06/JVM复习(下)/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/04/JVM复习(上)/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JVM(上)</div>
+    <a href="/2019/09/04/JVM复习(中)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM复习(中)</div>
       <i class="icon-circle-right"></i>
     </a>
   
